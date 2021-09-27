@@ -1,29 +1,44 @@
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using sales_order.Data;
 using sales_order.Items.Models;
 
 namespace sales_order.Items.Data
 {
     public class ItemRepo : IItemRepo
     {
+        private readonly AppDbContext db;
+
+        public ItemRepo(AppDbContext db)
+        {
+            this.db = db;
+        }
         public void CreateItem(Item item)
         {
-            throw new System.NotImplementedException();
+            db.Add(item);
         }
 
         public IEnumerable<Item> GetAllItems()
         {
-            throw new System.NotImplementedException();
+            return db.Items;
         }
 
         public Item GetItemById(int id)
         {
-            throw new System.NotImplementedException();
+            var item = db.Items.Where(i => i.Id == id).First();
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+
+            }
+            return item;
         }
 
         public bool SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return (db.SaveChanges() >= 0);
         }
     }
 }

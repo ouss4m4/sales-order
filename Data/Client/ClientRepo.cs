@@ -1,28 +1,43 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using sales_order.Clients.Models;
+using sales_order.Data;
 
 namespace sales_order.Clients.Data
 {
     public class ClientRepo : IClientRepo
     {
+        private readonly AppDbContext db;
+
+        public ClientRepo(AppDbContext db)
+        {
+            this.db = db;
+        }
         public void CreateClient(Client item)
         {
-            throw new System.NotImplementedException();
+            db.Add(item);
         }
 
         public IEnumerable<Client> GetAllClients()
         {
-            throw new System.NotImplementedException();
+            return db.Clients;
         }
 
         public Client GetClientById(int id)
         {
-            throw new System.NotImplementedException();
+            var client = db.Clients.Where(c => c.Id == id).First();
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+
+            }
+            return client;
         }
 
         public bool SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return (db.SaveChanges() >= 0);
         }
     }
 }

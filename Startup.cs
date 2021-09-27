@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using sales_order.Clients.Data;
 using sales_order.Items.Data;
 
 namespace sales_order
@@ -31,6 +32,7 @@ namespace sales_order
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IItemRepo, ItemRepo>();
+            services.AddScoped<IClientRepo, ClientRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "sales_order", Version = "v1" });

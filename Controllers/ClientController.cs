@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Clients.Data;
+using sales_order.Clients.Dtos;
 using sales_order.Clients.Models;
 
 namespace sales_order.Clients.Controllers
@@ -11,23 +13,26 @@ namespace sales_order.Clients.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly IClientRepo repo;
-        public ClientsController(IClientRepo repo)
+        private readonly IMapper mapper;
+
+        public ClientsController(IClientRepo repo, IMapper mapper)
         {
             this.repo = repo;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Client>> GetAllClients()
+        public ActionResult<IEnumerable<ClientReadDto>> GetAllClients()
         {
-            var clients = repo.GetAllClients();
-            return Ok(clients);
+            IEnumerable<Client> clients = repo.GetAllClients();
+            return Ok(mapper.Map<IEnumerable<ClientReadDto>>(clients));
         }
 
         [HttpGet("{id}", Name = "GetCLientById")]
         public ActionResult<Client> GetClientById(int id)
         {
             var client = repo.GetClientById(id);
-            return Ok(client);
+            return Ok(mapper.Map<ClientReadDto>(client));
 
         }
 

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace sales_order.Models
+namespace sales_order.Items.Models
 {
     public class Item
     {

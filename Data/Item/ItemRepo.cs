@@ -1,6 +1,6 @@
 
 using System.Collections.Generic;
-using sales_order.Models;
+using sales_order.Items.Models;
 
 namespace sales_order.Items.Data
 {

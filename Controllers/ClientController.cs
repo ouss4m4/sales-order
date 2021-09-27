@@ -37,12 +37,13 @@ namespace sales_order.Clients.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Client> CreateClient(Client dto)
+        public ActionResult<Client> CreateClient(ClientCreateDto dto)
         {
-            repo.CreateClient(dto);
+            Client client = mapper.Map<Client>(dto);
+            repo.CreateClient(client);
             repo.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetClientById), new { Id = dto.Id }, dto);
+            return CreatedAtRoute(nameof(GetClientById), new { Id = client.Id }, client);
 
         }
 

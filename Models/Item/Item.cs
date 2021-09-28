@@ -15,5 +15,8 @@ namespace sales_order.Items.Models
 
         [Required]
         public int StockQty { get; set; }
+
+        [Required]
+        public decimal UnitPrice { get; set; }
     }
 }

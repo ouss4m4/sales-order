@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using sales_order.Clients.Models;
 using sales_order.Items.Models;
+using sales_order.Orders.Models;
 
 namespace sales_order.Data
 {
@@ -10,5 +11,6 @@ namespace sales_order.Data
 
         public DbSet<Item> Items { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

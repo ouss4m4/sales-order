@@ -115,6 +115,9 @@ public class OrderLine
     - attribute order to connected salesperson
 
 - Sql Server
+
+![Db Diagram](https://raw.githubusercontent.com/ouss4m4/sales-order/main/db-diagram.png)
+
   - Entity Framework architecture setup ✔
   - start with InMemory db ✔
   - move to SqlServer ✔

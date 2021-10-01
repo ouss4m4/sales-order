@@ -25,14 +25,16 @@ namespace sales_order.Orders.Data
             return db.Orders;
         }
 
-        public Order GetOrderById(int id)
+        public Order GetOrderById(int orderId)
         {
-            var order = db.Orders.Where(o => o.Id == id).First();
+            var order = db.Orders.Where(o => o.OrderId == orderId).FirstOrDefault();
             if (order == null)
             {
                 throw new ArgumentNullException(nameof(order));
 
             }
+            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(l => l.OrderId == orderId);
+            order.OrderLines = orderLines.ToList();
             return order;
         }
 

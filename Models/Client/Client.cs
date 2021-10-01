@@ -5,7 +5,7 @@ namespace sales_order.Clients.Models
     public class Client
     {
         [Key]
-        public int Id { get; set; }
+        public int CardCode { get; set; }
 
         [Required]
         public string CardName { get; set; }

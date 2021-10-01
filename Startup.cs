@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using sales_order.Clients.Data;
 using sales_order.Data;
 using sales_order.Items.Data;
+using sales_order.Orders.Data;
 
 namespace sales_order
 {
@@ -33,6 +34,7 @@ namespace sales_order
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("SalesOrderDb"));
             services.AddScoped<IItemRepo, ItemRepo>();
             services.AddScoped<IClientRepo, ClientRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
@@ -61,6 +63,8 @@ namespace sales_order
             {
                 endpoints.MapControllers();
             });
+
+            PrepDb.PrepPopulation(app);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,8 +32,16 @@ namespace sales_order.Clients.Controllers
         [HttpGet("{id}", Name = "GetCLientById")]
         public ActionResult<Client> GetClientById(int id)
         {
-            var client = repo.GetClientById(id);
-            return Ok(mapper.Map<ClientReadDto>(client));
+            try
+            {
+                var client = repo.GetClientById(id);
+                return Ok(mapper.Map<ClientReadDto>(client));
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
 
         }
 
@@ -43,7 +52,7 @@ namespace sales_order.Clients.Controllers
             repo.CreateClient(client);
             repo.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetClientById), new { Id = client.Id }, client);
+            return CreatedAtRoute(nameof(GetClientById), new { Id = client.CardCode }, client);
 
         }
 

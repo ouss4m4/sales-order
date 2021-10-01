@@ -25,9 +25,9 @@ namespace sales_order.Items.Data
             return db.Items;
         }
 
-        public Item GetItemById(int id)
+        public Item GetItemById(int ItemCode)
         {
-            var item = db.Items.Where(i => i.Id == id).First();
+            var item = db.Items.Where(i => i.ItemCode == ItemCode).FirstOrDefault();
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));

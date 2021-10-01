@@ -41,7 +41,7 @@ namespace sales_order.Items.Controllers
             repo.CreateItem(item);
             repo.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetItemById), new { Id = item.Id }, item);
+            return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
     }

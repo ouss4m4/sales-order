@@ -9,12 +9,18 @@ namespace sales_order.Orders.Models
     public class Order
     {
         [Key]
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public DateTime DocDate { get; set; } = DateTime.Now;
         public DateTime DocDueDate { get; set; } = DateTime.Today.AddDays(1);
         [Required]
-        public Client Client { get; set; }
+        public int CardCode { get; set; }
+        [Required]
+        public string CardName { get; set; }
+        [Required]
+        public string BillingAddress { get; set; }
+        [Required]
+        public string ShippingAddress { get; set; }
         [MinLength(1)]
-        public List<Item> Items { get; set; }
+        public ICollection<OrderLine> OrderLines { get; set; }
     }
 }

@@ -7,10 +7,13 @@ namespace sales_order.Orders.Dtos
 {
     public class OrderReadDto
     {
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public DateTime DocDate { get; set; }
         public DateTime DocDueDate { get; set; }
-        public Client Client { get; set; }
-        public List<Item> Items { get; set; }
+        public int CardCode { get; set; }
+        public string CardName { get; set; }
+        public string BillingAddress { get; set; }
+        public string ShippingAddress { get; set; }
+        public List<OrderLineReadDto> OrderLines { get; set; }
     }
 }

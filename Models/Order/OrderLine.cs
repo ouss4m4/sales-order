@@ -1,10 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace sales_order.Items.Models
+namespace sales_order.Orders.Models
 {
-    public class Item
+    public class OrderLine
     {
         [Key]
+        public int LineId { get; set; }
+
+        [Required]
+        public int OrderId { get; set; }
+
+        [Required]
         public int ItemCode { get; set; }
 
         [Required]
@@ -14,9 +20,7 @@ namespace sales_order.Items.Models
         public string description { get; set; }
 
         [Required]
-        public int StockQty { get; set; }
+        public int Quantity { get; set; }
 
-        [Required]
-        public decimal UnitPrice { get; set; }
     }
 }

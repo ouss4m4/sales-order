@@ -24,9 +24,9 @@ namespace sales_order.Clients.Data
             return db.Clients;
         }
 
-        public Client GetClientById(int id)
+        public Client GetClientById(int cardCode)
         {
-            var client = db.Clients.Where(c => c.Id == id).First();
+            var client = db.Clients.Where(c => c.CardCode == cardCode).FirstOrDefault();
             if (client == null)
             {
                 throw new ArgumentNullException(nameof(client));

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace sales_order.Items.Models
 {
@@ -17,6 +18,7 @@ namespace sales_order.Items.Models
         public int StockQty { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal UnitPrice { get; set; }
     }
 }

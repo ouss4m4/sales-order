@@ -28,10 +28,11 @@ namespace sales_order
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("SalesOrderDb"));
+            /* services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("SalesOrderDb")); */
+            services.AddDbContext<AppDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("v2")));
             services.AddScoped<IItemRepo, ItemRepo>();
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
@@ -43,7 +44,6 @@ namespace sales_order
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -64,7 +64,7 @@ namespace sales_order
                 endpoints.MapControllers();
             });
 
-            PrepDb.PrepPopulation(app);
+            // PrepDb.PrepPopulation(app);
         }
     }
 }

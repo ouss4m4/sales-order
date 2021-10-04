@@ -10,6 +10,8 @@ namespace sales_order.Items.Profiles
         {
             CreateMap<ItemCreateDto, Item>();
             CreateMap<Item, ItemReadDto>();
+            CreateMap<ItemReadDto, Item>();
+
         }
 
     }

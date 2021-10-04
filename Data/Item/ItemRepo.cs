@@ -40,5 +40,17 @@ namespace sales_order.Items.Data
         {
             return (db.SaveChanges() >= 0);
         }
+
+        public Item UpdateItem(Item model)
+        {
+            // look for the item, and update it (order repo can call this for sure)
+            Item origItem = GetItemById(model.ItemCode);
+            origItem.ItemName = model.ItemName;
+            origItem.description = model.description;
+            origItem.StockQty = model.StockQty;
+            origItem.UnitPrice = model.UnitPrice;
+            SaveChanges();
+            return origItem;
+        }
     }
 }

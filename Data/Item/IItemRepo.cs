@@ -5,9 +5,10 @@ namespace sales_order.Items.Data
 {
     public interface IItemRepo
     {
-        bool SaveChanges();
-        Item GetItemById(int id);
         IEnumerable<Item> GetAllItems();
+        Item GetItemById(int id);
+        Item UpdateItem(Item item);
         void CreateItem(Item item);
+        bool SaveChanges();
     }
 }

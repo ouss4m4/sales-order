@@ -44,5 +44,14 @@ namespace sales_order.Items.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
+        [HttpPut]
+        public ActionResult<Item> EditItem(ItemReadDto dto)
+        {
+            Item item = mapper.Map<Item>(dto);
+            repo.UpdateItem(item);
+            repo.SaveChanges();
+            return Ok(mapper.Map<ItemReadDto>(item));
+        }
+
     }
 }

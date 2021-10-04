@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using sales_order.Orders.Data;
 using sales_order.Orders.Dtos;
 using sales_order.Orders.Models;
+using sales_order.Orders.UseCases;
 
 namespace sales_order.Orders.Controllers
 {
@@ -13,11 +14,13 @@ namespace sales_order.Orders.Controllers
     {
         private readonly IOrderRepo repo;
         private readonly IMapper mapper;
+        private readonly CreateOrder createOrder;
 
-        public OrdersController(IOrderRepo repo, IMapper mapper)
+        public OrdersController(IOrderRepo repo, IMapper mapper, CreateOrder createOrder)
         {
             this.repo = repo;
             this.mapper = mapper;
+            this.createOrder = createOrder;
         }
 
         [HttpGet]
@@ -38,11 +41,9 @@ namespace sales_order.Orders.Controllers
         [HttpPost]
         public ActionResult<Order> CreateItem(OrderCreateDto dto)
         {
-            Order order = mapper.Map<Order>(dto);
-            repo.CreateOrder(order);
-            repo.SaveChanges();
-
-            return CreatedAtRoute(nameof(GetOrderById), new { Id = order.OrderId }, order);
+            var order = mapper.Map<Order>(dto);
+            Order result = createOrder.execute(order);
+            return CreatedAtRoute(nameof(GetOrderById), new { Id = result.OrderId }, result);
         }
     }
 }

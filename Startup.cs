@@ -16,6 +16,7 @@ using sales_order.Clients.Data;
 using sales_order.Data;
 using sales_order.Items.Data;
 using sales_order.Orders.Data;
+using sales_order.Orders.UseCases;
 
 namespace sales_order
 {
@@ -36,6 +37,7 @@ namespace sales_order
             services.AddScoped<IItemRepo, ItemRepo>();
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<CreateOrder>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>

@@ -52,5 +52,13 @@ namespace sales_order.Items.Data
             SaveChanges();
             return origItem;
         }
+
+        /* public Item UpdateStockQty(int ItemCode, int newQty)
+        {
+            Item origItem = GetItemById(ItemCode);
+            origItem.StockQty = newQty;
+            SaveChanges();
+            return origItem;
+        } */
     }
 }

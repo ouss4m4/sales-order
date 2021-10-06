@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using sales_order.Data;
 using sales_order.Items.Models;
 
@@ -15,19 +17,20 @@ namespace sales_order.Items.Data
         {
             this.db = db;
         }
-        public void CreateItem(Item item)
+        public async Task<bool> CreateItem(Item item)
         {
-            db.Add(item);
+            await db.AddAsync(item);
+            return true;
         }
 
-        public IEnumerable<Item> GetAllItems()
+        public async Task<IEnumerable<Item>> GetAllItems()
         {
-            return db.Items;
+            return await db.Items.ToListAsync();
         }
 
-        public Item GetItemById(int ItemCode)
+        public async Task<Item> GetItemById(int ItemCode)
         {
-            var item = db.Items.Where(i => i.ItemCode == ItemCode).FirstOrDefault();
+            var item = await db.Items.FindAsync(ItemCode);
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
@@ -36,29 +39,21 @@ namespace sales_order.Items.Data
             return item;
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return (db.SaveChanges() >= 0);
+            return await db.SaveChangesAsync() >= 0;
         }
 
-        public Item UpdateItem(Item model)
+        public async Task<Item> UpdateItem(Item model)
         {
             // look for the item, and update it (order repo can call this for sure)
-            Item origItem = GetItemById(model.ItemCode);
+            Item origItem = await GetItemById(model.ItemCode);
             origItem.ItemName = model.ItemName;
             origItem.description = model.description;
             origItem.StockQty = model.StockQty;
             origItem.UnitPrice = model.UnitPrice;
-            SaveChanges();
+            await SaveChanges();
             return origItem;
         }
-
-        /* public Item UpdateStockQty(int ItemCode, int newQty)
-        {
-            Item origItem = GetItemById(ItemCode);
-            origItem.StockQty = newQty;
-            SaveChanges();
-            return origItem;
-        } */
     }
 }

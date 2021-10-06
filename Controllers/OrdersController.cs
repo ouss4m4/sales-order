@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Orders.Data;
@@ -24,25 +25,25 @@ namespace sales_order.Orders.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> GetAllOrders()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
         {
-            IEnumerable<Order> orders = repo.GetAllOrders();
+            IEnumerable<Order> orders = await repo.GetAllOrders();
 
             return Ok(mapper.Map<List<OrderReadDto>>(orders));
         }
 
         [HttpGet("{id}", Name = "GetOrderById")]
-        public ActionResult<Order> GetOrderById(int id)
+        public async Task<ActionResult<Order>> GetOrderById(int id)
         {
-            Order order = repo.GetOrderById(id);
+            Order order = await repo.GetOrderById(id);
             return Ok(mapper.Map<OrderReadDto>(order));
         }
 
         [HttpPost]
-        public ActionResult<Order> CreateItem(OrderCreateDto dto)
+        public async Task<ActionResult<Order>> CreateOrder(OrderCreateDto dto)
         {
             var order = mapper.Map<Order>(dto);
-            Order result = createOrder.execute(order);
+            Order result = await createOrder.execute(order);
             return CreatedAtRoute(nameof(GetOrderById), new { Id = result.OrderId }, result);
         }
     }

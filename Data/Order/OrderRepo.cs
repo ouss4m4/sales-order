@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using sales_order.Data;
 using sales_order.Orders.Models;
 
@@ -15,32 +17,33 @@ namespace sales_order.Orders.Data
             this.db = db;
         }
 
-        public void CreateOrder(Order order)
+        public async Task<bool> CreateOrder(Order order)
         {
-            db.Orders.Add(order);
+            await db.Orders.AddAsync(order);
+            return true;
         }
 
-        public IEnumerable<Order> GetAllOrders()
+        public async Task<IEnumerable<Order>> GetAllOrders()
         {
-            return db.Orders;
+            return await db.Orders.ToListAsync();
         }
 
-        public Order GetOrderById(int orderId)
+        public async Task<Order> GetOrderById(int orderId)
         {
-            var order = db.Orders.Where(o => o.OrderId == orderId).FirstOrDefault();
+            var order = await db.Orders.FindAsync(orderId);
             if (order == null)
             {
                 throw new ArgumentNullException(nameof(order));
 
             }
-            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(l => l.OrderId == orderId);
+            IEnumerable<OrderLine> orderLines = await db.OrderLines.Where(l => l.OrderId == orderId).ToListAsync();
             order.OrderLines = orderLines.ToList();
             return order;
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return (db.SaveChanges() >= 0);
+            return await db.SaveChangesAsync() >= 0;
         }
     }
 }

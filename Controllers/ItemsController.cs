@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Items.Data;
@@ -21,35 +22,35 @@ namespace sales_order.Items.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ItemReadDto>> GetAllItems()
+        public async Task<ActionResult<IEnumerable<ItemReadDto>>> GetAllItems()
         {
-            IEnumerable<Item> items = repo.GetAllItems();
+            IEnumerable<Item> items = await repo.GetAllItems();
             return Ok(mapper.Map<IEnumerable<ItemReadDto>>(items));
         }
 
         [HttpGet("{id}", Name = "GetItemById")]
-        public ActionResult<Item> GetItemById(int id)
+        public async Task<ActionResult<Item>> GetItemById(int id)
         {
-            Item item = repo.GetItemById(id);
+            Item item = await repo.GetItemById(id);
             return Ok(mapper.Map<ItemReadDto>(item));
         }
 
         [HttpPost]
-        public ActionResult<Item> CreateItem(ItemCreateDto dto)
+        public async Task<ActionResult<Item>> CreateItem(ItemCreateDto dto)
         {
             Item item = mapper.Map<Item>(dto);
-            repo.CreateItem(item);
-            repo.SaveChanges();
+            await repo.CreateItem(item);
+            await repo.SaveChanges();
 
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
         [HttpPut]
-        public ActionResult<Item> EditItem(ItemReadDto dto)
+        public async Task<ActionResult<Item>> EditItem(ItemReadDto dto)
         {
-            Item item = mapper.Map<Item>(dto);
-            repo.UpdateItem(item);
-            repo.SaveChanges();
+            var item = mapper.Map<Item>(dto);
+            await repo.UpdateItem(item);
+            await repo.SaveChanges();
             return Ok(mapper.Map<ItemReadDto>(item));
         }
 

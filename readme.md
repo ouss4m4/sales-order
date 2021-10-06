@@ -105,6 +105,7 @@ public class OrderLine
   - Controllers & Mappers ✔
   - Use repository pattern ✔
   - intial CRUD operation on all models ✔
+  - substract stockqty on order creation ✔
   - Enhance Order creation
     - Add Order Total balance
     - Get orders per client
@@ -118,9 +119,9 @@ public class OrderLine
 
 ![Db Diagram](https://raw.githubusercontent.com/ouss4m4/sales-order/main/db-diagram.png)
 
-  - Entity Framework architecture setup ✔
-  - start with InMemory db ✔
-  - move to SqlServer ✔
+- Entity Framework architecture setup ✔
+- start with InMemory db ✔
+- move to SqlServer ✔
 
 ## FrontEnd
 

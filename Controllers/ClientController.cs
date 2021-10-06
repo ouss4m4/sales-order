@@ -23,18 +23,18 @@ namespace sales_order.Clients.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ClientReadDto>> GetAllClients()
+        public async Task<ActionResult<IEnumerable<ClientReadDto>>> GetAllClients()
         {
-            IEnumerable<Client> clients = repo.GetAllClients();
+            IEnumerable<Client> clients = await repo.GetAllClients();
             return Ok(mapper.Map<IEnumerable<ClientReadDto>>(clients));
         }
 
         [HttpGet("{id}", Name = "GetCLientById")]
-        public ActionResult<Client> GetClientById(int id)
+        public async Task<ActionResult<Client>> GetClientById(int id)
         {
             try
             {
-                var client = repo.GetClientById(id);
+                var client = await repo.GetClientById(id);
                 return Ok(mapper.Map<ClientReadDto>(client));
 
             }
@@ -46,11 +46,11 @@ namespace sales_order.Clients.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Client> CreateClient(ClientCreateDto dto)
+        public async Task<ActionResult<Client>> CreateClient(ClientCreateDto dto)
         {
             Client client = mapper.Map<Client>(dto);
-            repo.CreateClient(client);
-            repo.SaveChanges();
+            await repo.CreateClient(client);
+            await repo.SaveChanges();
 
             return CreatedAtRoute(nameof(GetClientById), new { Id = client.CardCode }, client);
 

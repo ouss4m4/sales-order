@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using sales_order.Clients.Models;
 
 namespace sales_order.Clients.Data
 {
     public interface IClientRepo
     {
-        bool SaveChanges();
-        Client GetClientById(int id);
-        IEnumerable<Client> GetAllClients();
-        void CreateClient(Client item);
+        Task<bool> SaveChanges();
+        Task<Client> GetClientById(int id);
+        Task<IEnumerable<Client>> GetAllClients();
+        Task<bool> CreateClient(Client item);
 
     }
 }

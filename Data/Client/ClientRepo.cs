@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using sales_order.Clients.Models;
 using sales_order.Data;
 
@@ -14,19 +15,21 @@ namespace sales_order.Clients.Data
         {
             this.db = db;
         }
-        public void CreateClient(Client item)
+
+        public async Task<bool> CreateClient(Client item)
         {
-            db.Add(item);
+            await db.AddAsync(item);
+            return true;
         }
 
-        public IEnumerable<Client> GetAllClients()
+        public async Task<IEnumerable<Client>> GetAllClients()
         {
-            return db.Clients;
+            return await db.Clients.ToListAsync();
         }
 
-        public Client GetClientById(int cardCode)
+        public async Task<Client> GetClientById(int cardCode)
         {
-            var client = db.Clients.Where(c => c.CardCode == cardCode).FirstOrDefault();
+            var client = await db.Clients.FindAsync(cardCode);
             if (client == null)
             {
                 throw new ArgumentNullException(nameof(client));
@@ -35,9 +38,9 @@ namespace sales_order.Clients.Data
             return client;
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return (db.SaveChanges() >= 0);
+            return await db.SaveChangesAsync() >= 0;
         }
     }
 }

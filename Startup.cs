@@ -17,6 +17,7 @@ using sales_order.Data;
 using sales_order.Items.Data;
 using sales_order.Orders.Data;
 using sales_order.Orders.UseCases;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace sales_order
 {
@@ -32,6 +33,16 @@ namespace sales_order
         public void ConfigureServices(IServiceCollection services)
         {
             /* services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("SalesOrderDb")); */
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = $"{Configuration["Auth0:Domain"]}";
+                options.Audience = Configuration["Auth0:Audience"];
+            });
+
             services.AddDbContext<AppDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("v2")));
             services.AddScoped<IItemRepo, ItemRepo>();
@@ -58,6 +69,8 @@ namespace sales_order
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

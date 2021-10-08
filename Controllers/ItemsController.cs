@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Items.Data;
 using sales_order.Items.Dtos;
@@ -45,10 +46,11 @@ namespace sales_order.Items.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Item>> EditItem(ItemReadDto dto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Item>> UpdateItem(int id, ItemCreateDto dto)
         {
             var item = mapper.Map<Item>(dto);
+            item.ItemCode = id;
             await repo.UpdateItem(item);
             await repo.SaveChanges();
             return Ok(mapper.Map<ItemReadDto>(item));

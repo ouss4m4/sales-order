@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Orders.Data;
 using sales_order.Orders.Dtos;
@@ -36,6 +37,10 @@ namespace sales_order.Orders.Controllers
         public async Task<ActionResult<Order>> GetOrderById(int id)
         {
             Order order = await repo.GetOrderById(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
             return Ok(mapper.Map<OrderReadDto>(order));
         }
 
@@ -45,6 +50,22 @@ namespace sales_order.Orders.Controllers
             var order = mapper.Map<Order>(dto);
             Order result = await createOrder.execute(order);
             return CreatedAtRoute(nameof(GetOrderById), new { Id = result.OrderId }, result);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<Order>> EditOrder(int id, JsonPatchDocument<OrderReadDto> patchDto)
+        {
+            Order order = await repo.GetOrderById(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderPatch = mapper.Map<JsonPatchDocument<Order>>(patchDto);
+            orderPatch.ApplyTo(order);
+            await repo.updateOrder(order);
+            return Ok(mapper.Map<OrderReadDto>(order));
+
         }
     }
 }

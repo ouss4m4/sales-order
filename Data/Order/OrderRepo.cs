@@ -45,5 +45,26 @@ namespace sales_order.Orders.Data
         {
             return await db.SaveChangesAsync() >= 0;
         }
+
+        public async Task<Order> updateOrder(Order order)
+        {
+
+            // order {cardcode: '01',OrderLines: []}
+            Order origOrder = await db.Orders.FindAsync(order.OrderId);
+            if (origOrder == null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+            origOrder.DocDate = order.DocDate;
+            origOrder.DocDueDate = order.DocDueDate;
+            origOrder.CardName = order.CardName;
+            origOrder.CardCode = order.CardCode;
+            origOrder.BillingAddress = order.BillingAddress;
+            origOrder.ShippingAddress = order.ShippingAddress;
+            origOrder.OrderLines = order.OrderLines;
+
+            await db.SaveChangesAsync();
+            return order;
+        }
     }
 }

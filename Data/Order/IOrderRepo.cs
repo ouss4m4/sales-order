@@ -10,5 +10,6 @@ namespace sales_order.Orders.Data
         Task<Order> GetOrderById(int id);
         Task<IEnumerable<Order>> GetAllOrders();
         Task<bool> CreateOrder(Order order);
+        Task<Order> updateOrder(Order order);
     }
 }

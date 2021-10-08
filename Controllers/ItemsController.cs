@@ -57,7 +57,7 @@ namespace sales_order.Items.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult> EditItem(int id, JsonPatchDocument<Item> patchDoc)
+        public async Task<ActionResult> EditItem(int id, JsonPatchDocument<ItemReadDto> patchDto)
         {
             Item item = await repo.GetItemById(id);
             if (item == null)
@@ -65,7 +65,8 @@ namespace sales_order.Items.Controllers
                 return NotFound();
             }
 
-            patchDoc.ApplyTo(item);
+            var patchItem = mapper.Map<JsonPatchDocument<Item>>(patchDto);
+            patchItem.ApplyTo(item);
             await repo.UpdateItem(item);
             return NoContent();
         }

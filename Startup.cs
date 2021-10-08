@@ -49,7 +49,8 @@ namespace sales_order
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<CreateOrder>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using sales_order.Items.Data;
 using sales_order.Items.Dtos;
@@ -46,15 +47,29 @@ namespace sales_order.Items.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Item>> UpdateItem(int id, ItemCreateDto dto)
+        [HttpPut]
+        public async Task<ActionResult<Item>> UpdateItem(ItemReadDto dto)
         {
             var item = mapper.Map<Item>(dto);
-            item.ItemCode = id;
             await repo.UpdateItem(item);
             await repo.SaveChanges();
             return Ok(mapper.Map<ItemReadDto>(item));
         }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> EditItem(int id, JsonPatchDocument<Item> patchDoc)
+        {
+            Item item = await repo.GetItemById(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            patchDoc.ApplyTo(item);
+            await repo.UpdateItem(item);
+            return NoContent();
+        }
+
 
     }
 }

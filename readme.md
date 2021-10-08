@@ -106,6 +106,8 @@ public class OrderLine
   - Use repository pattern ✔
   - intial CRUD operation on all models ✔
   - substract stockqty on order creation ✔
+  - add JsonPatch on Order ✔
+  - add JsonPath on Item ✔
   - Enhance Order creation
     - Add Order Total balance
     - Get orders per client

@@ -2,11 +2,13 @@
 
 Work In Progress...
 
-Web Application that allows for Sales department to create sales orders for registered clients.
+Web Application to create sales orders for clients.
 
 In this app i will try an implements as much features as possible that i generally encounters in real world entreprise apps.
 
 ## Initial Architecture
+
+![Db Diagram](https://raw.githubusercontent.com/ouss4m4/sales-order/main/db-diagram.png)
 
 ```c#
 public class Client
@@ -118,8 +120,6 @@ public class OrderLine
     - attribute order to connected salesperson
 
 - Sql Server
-
-![Db Diagram](https://raw.githubusercontent.com/ouss4m4/sales-order/main/db-diagram.png)
 
 - Entity Framework architecture setup ✔
 - start with InMemory db ✔

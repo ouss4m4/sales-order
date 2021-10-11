@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api/api';
+import AddItem from './components/AddItem';
 import { ItemsTable } from './components/ItemsTable';
 import { IItem } from './typing/IItem';
 
@@ -16,9 +17,11 @@ export const ItemPage = (props: Props) => {
     fetchItems();
   }, []);
 
+  const addItem = (item: IItem): void => {};
+
   return (
     <>
-      {/* <AddItem? */}
+      <AddItem onItemAdded={addItem} />
       <ItemsTable Items={data} />
     </>
   );

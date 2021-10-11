@@ -1,5 +1,5 @@
 export interface IItem {
-  itemCode: number;
+  itemCode?: number;
   itemName: string;
   description: string;
   stockQty: number;

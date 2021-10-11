@@ -7,17 +7,20 @@ import { IItem } from './typing/IItem';
 interface Props {}
 
 export const ItemPage = (props: Props) => {
-  const [data, setData] = useState<IItem[]>([]);
-
   useEffect(() => {
-    async function fetchItems() {
-      const result = await api.getItems();
-      setData(result);
-    }
     fetchItems();
   }, []);
+  const [data, setData] = useState<IItem[]>([]);
 
-  const addItem = (item: IItem): void => {};
+  const fetchItems = async () => {
+    const result = await api.getItems();
+    setData(result);
+  };
+
+  const addItem = async (item: IItem): Promise<void> => {
+    await api.addItem(item);
+    fetchItems();
+  };
 
   return (
     <>

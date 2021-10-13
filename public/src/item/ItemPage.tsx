@@ -10,11 +10,11 @@ export const ItemPage = (props: Props) => {
   useEffect(() => {
     fetchItems();
   }, []);
-  const [data, setData] = useState<IItem[]>([]);
+  const [list, setList] = useState<IItem[]>([]);
 
   const fetchItems = async () => {
     const result = await itemApi.getItems();
-    setData(result);
+    setList(result);
   };
 
   const addItem = async (item: IItem): Promise<void> => {
@@ -25,7 +25,7 @@ export const ItemPage = (props: Props) => {
   return (
     <>
       <AddItem onItemAdded={addItem} />
-      <ItemsTable Items={data} />
+      <ItemsTable Items={list} />
     </>
   );
 };

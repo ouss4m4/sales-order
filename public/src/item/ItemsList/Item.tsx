@@ -1,18 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { IItem } from '../typing/IItem';
 
 interface Props {
   item: IItem;
 }
 
-export const Item = (props: Props) => {
+export const Item = ({ item }: Props) => {
   return (
     <tr>
-      <td>{props.item.itemCode}</td>
-      <td>{props.item.itemName}</td>
-      <td>{props.item.description}</td>
-      <td>{props.item.stockQty}</td>
-      <td>{props.item.unitPrice}</td>
+      <td>{item.itemCode}</td>
+      <td>{item.itemName}</td>
+      <td>{item.description}</td>
+      <td>{item.stockQty}</td>
+      <td>{item.unitPrice}</td>
+      <td>
+        <Link to={`/items/${item.itemCode}`}>{'>'}</Link>
+      </td>
     </tr>
   );
 };

@@ -40,7 +40,7 @@ class ItemApi {
       }).then((data) => data.json());
       return response;
     } catch (error: any) {
-      throw new Error(error);
+      throw new Error('Item not found');
     }
   }
 }

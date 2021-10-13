@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../api/api';
+import { itemApi } from '../api/item';
 import AddItem from './components/AddItem';
-import { ItemsTable } from './components/ItemsTable';
+import { ItemsTable } from './ItemsList/ItemsTable';
 import { IItem } from './typing/IItem';
 
 interface Props {}
@@ -13,12 +13,12 @@ export const ItemPage = (props: Props) => {
   const [data, setData] = useState<IItem[]>([]);
 
   const fetchItems = async () => {
-    const result = await api.getItems();
+    const result = await itemApi.getItems();
     setData(result);
   };
 
   const addItem = async (item: IItem): Promise<void> => {
-    await api.addItem(item);
+    await itemApi.addItem(item);
     fetchItems();
   };
 

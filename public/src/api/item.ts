@@ -1,14 +1,17 @@
 import { apiUrl } from '../core/consts';
 import { IItem } from '../item/typing/IItem';
 
-class Api {
+class ItemApi {
   constructor(private url: string) {}
-
+  private headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
   public async getItems(): Promise<IItem[]> {
     try {
-      const items = await fetch(`${this.url}/items`).then((data) =>
-        data.json()
-      );
+      const items = await fetch(`${this.url}/items`, {
+        headers: this.headers,
+      }).then((data) => data.json());
       return items;
     } catch (error) {
       console.log('error fetching items', error);
@@ -20,10 +23,7 @@ class Api {
     try {
       const response = await fetch(`${this.url}/items`, {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        headers: this.headers,
         body: JSON.stringify(item),
       }).then((data) => data.json());
       console.log(response);
@@ -32,6 +32,17 @@ class Api {
       console.log(error);
     }
   }
+
+  public async getItemById(itemcode: number): Promise<IItem> {
+    try {
+      const response = await fetch(`${this.url}/items/${itemcode}`, {
+        headers: this.headers,
+      }).then((data) => data.json());
+      return response;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
 }
 
-export const api = new Api(apiUrl);
+export const itemApi = new ItemApi(apiUrl);

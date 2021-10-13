@@ -43,6 +43,18 @@ class ItemApi {
       throw new Error('Item not found');
     }
   }
+  public async editItem(item: IItem): Promise<IItem> {
+    try {
+      const response = await fetch(`${this.url}/items`, {
+        headers: this.headers,
+        method: 'PUT',
+        body: JSON.stringify(item),
+      }).then((data) => data.json());
+      return response;
+    } catch (error: any) {
+      throw new Error('Edit failed');
+    }
+  }
 }
 
 export const itemApi = new ItemApi(apiUrl);

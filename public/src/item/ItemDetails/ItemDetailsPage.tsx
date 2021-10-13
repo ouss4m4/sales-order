@@ -24,9 +24,17 @@ export const ItemDetailsPage: FC = () => {
     }
   };
 
+  const editItemDetails = async (item: IItem): Promise<boolean> => {
+    try {
+      await itemApi.editItem(item);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
   return (
     <>
-      {item && <ItemDetails item={item} />}
+      {item && <ItemDetails item={item} onEditSubmit={editItemDetails} />}
       <p>{loading}</p>
     </>
   );

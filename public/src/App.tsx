@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import ClientPage from './client/typings/ClientPage';
-import { ItemDetails } from './item/ItemDetails/ItemDetails';
+import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import logo from './logo.svg';
 import OrderPage from './order/OrderPage';
@@ -43,7 +43,7 @@ function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route path={`/items/:itemcode`}>
-              <ItemDetails />
+              <ItemDetailsPage />
             </Route>
             <Route path="/items">
               <ItemPage />

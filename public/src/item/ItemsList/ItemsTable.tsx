@@ -1,8 +1,4 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
-import { match } from 'react-router-dom';
-import OrderPage from '../../order/OrderPage';
-import { ItemDetails } from '../ItemDetails/ItemDetails';
 import { IItem } from '../typing/IItem';
 import { Item } from './Item';
 

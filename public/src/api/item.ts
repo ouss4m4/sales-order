@@ -26,7 +26,6 @@ class ItemApi {
         headers: this.headers,
         body: JSON.stringify(item),
       }).then((data) => data.json());
-      console.log(response);
       return response;
     } catch (error) {
       console.log(error);
@@ -53,6 +52,20 @@ class ItemApi {
       return response;
     } catch (error: any) {
       throw new Error('Edit failed');
+    }
+  }
+
+  public async deleteItem(item: IItem): Promise<boolean> {
+    try {
+      await fetch(`${this.url}/items`, {
+        headers: this.headers,
+        method: 'DELETE',
+        body: JSON.stringify(item),
+      });
+      return true;
+    } catch (error: any) {
+      console.log(error);
+      throw new Error('Delete failed');
     }
   }
 }

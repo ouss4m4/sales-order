@@ -5,9 +5,10 @@ import { IItem } from '../typing/IItem';
 interface Props {
   item: IItem;
   onEditSubmit: (item: IItem) => Promise<boolean>;
+  onDeleteItem: (item: IItem) => Promise<boolean>;
 }
 
-const ItemDetails: FC<Props> = ({ item, onEditSubmit }) => {
+const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
   const history = useHistory();
   const [editing, SetEditing] = useState(false);
   const [formState, setFormState] = useState({
@@ -52,6 +53,20 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit }) => {
     });
   };
 
+  const onDeleteClick = async () => {
+    let confirmDelete = window.confirm('You sure you want to delete ?');
+    if (confirmDelete) {
+      var deleted = await onDeleteItem(item);
+      console.log('------', deleted);
+      if (deleted) {
+        onBackClick();
+      } else {
+        alert('can not delete');
+      }
+    } else {
+      return;
+    }
+  };
   const onBackClick = () => {
     history.goBack();
   };
@@ -113,6 +128,7 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit }) => {
             )}
           </div>
           <div>
+            {!editing && <button onClick={onDeleteClick}>Delete</button>}
             {editing ? (
               <button onClick={onSaveClick}>Save</button>
             ) : (

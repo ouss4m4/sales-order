@@ -56,5 +56,13 @@ namespace sales_order.Clients.Controllers
 
         }
 
+        [HttpPut]
+        public async Task<ActionResult<Client>> EditClient(ClientReadDto dto)
+        {
+            Client client = mapper.Map<Client>(dto);
+            await repo.EditClient(client);
+            return Ok(mapper.Map<ClientReadDto>(client));
+        }
+
     }
 }

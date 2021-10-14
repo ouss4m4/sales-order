@@ -22,6 +22,17 @@ namespace sales_order.Clients.Data
             return true;
         }
 
+        public async Task<Client> EditClient(Client model)
+        {
+            Client origClient = await GetClientById(model.CardCode);
+            origClient.CardCode = model.CardCode;
+            origClient.CardName = model.CardName;
+            origClient.BillingAddress = model.BillingAddress;
+            origClient.ShippingAddress = model.ShippingAddress;
+            await SaveChanges();
+            return origClient;
+        }
+
         public async Task<IEnumerable<Client>> GetAllClients()
         {
             return await db.Clients.ToListAsync();

@@ -10,6 +10,7 @@ namespace sales_order.Clients.Profiles
         {
             CreateMap<ClientCreateDto, Client>();
             CreateMap<Client, ClientReadDto>();
+            CreateMap<ClientReadDto, Client>();
         }
 
     }

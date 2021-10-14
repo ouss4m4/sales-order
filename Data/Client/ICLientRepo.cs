@@ -10,6 +10,7 @@ namespace sales_order.Clients.Data
         Task<Client> GetClientById(int id);
         Task<IEnumerable<Client>> GetAllClients();
         Task<bool> CreateClient(Client item);
+        Task<Client> EditClient(Client item);
 
     }
 }

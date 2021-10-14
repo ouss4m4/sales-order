@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { itemApi } from '../../api/item';
-import ItemDetails from '../components/ItemDetails';
+import ItemDetails from './ItemDetails';
 import { IItem } from '../typing/IItem';
 
 export const ItemDetailsPage: FC = () => {
@@ -27,6 +27,7 @@ export const ItemDetailsPage: FC = () => {
   const editItemDetails = async (item: IItem): Promise<boolean> => {
     try {
       await itemApi.editItem(item);
+      setItem(item);
       return true;
     } catch (error) {
       return false;

@@ -23,6 +23,12 @@ namespace sales_order.Items.Data
             return true;
         }
 
+        public void DeleteItem(Item item)
+        {
+            this.db.Items.Attach(item);
+            this.db.Items.Remove(item);
+        }
+
         public async Task<IEnumerable<Item>> GetAllItems()
         {
             return await db.Items.ToListAsync();

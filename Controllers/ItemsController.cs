@@ -72,5 +72,15 @@ namespace sales_order.Items.Controllers
         }
 
 
+        [HttpDelete]
+        public async Task<ActionResult> DeleteItem(ItemReadDto dto)
+        {
+            var item = mapper.Map<Item>(dto);
+            repo.DeleteItem(item);
+            await repo.SaveChanges();
+            return NoContent();
+        }
+
+
     }
 }

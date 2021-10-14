@@ -1,6 +1,7 @@
 export interface IClient {
-  cardcode: number;
-  carname: string;
+  cardCode: number;
+  cardName: string;
   shippingAddress: string;
   billingAddress: string;
+  phoneNumber: string;
 }

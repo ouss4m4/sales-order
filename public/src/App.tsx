@@ -1,7 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom';
 import './App.css';
-import ClientPage from './client/typings/ClientPage';
+import ClientDetails from './client/ClientDetails/ClientDetailsPage';
+import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import logo from './logo.svg';
@@ -42,14 +49,20 @@ function App() {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
+            <Route exact path="/">
+              <Redirect to="/clients" />
+            </Route>
+            <Route exact path="/items">
+              <ItemPage />
+            </Route>
             <Route path={`/items/:itemcode`}>
               <ItemDetailsPage />
             </Route>
-            <Route path="/items">
-              <ItemPage />
-            </Route>
-            <Route path="/clients">
+            <Route exact path="/clients">
               <ClientPage />
+            </Route>
+            <Route path="/clients/:cardcode">
+              <ClientDetails />
             </Route>
             <Route path="/orders">
               <OrderPage />

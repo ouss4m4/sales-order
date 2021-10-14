@@ -42,6 +42,19 @@ class ClientApi {
       throw new Error(error);
     }
   }
+
+  public async editCLient(client: IClient): Promise<IClient> {
+    try {
+      const response = await fetch(`${this.url}/clients`, {
+        method: 'PUT',
+        headers: this.headers,
+        body: JSON.stringify(client),
+      }).then((data) => data.json());
+      return response;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const clientApi = new ClientApi(apiUrl);

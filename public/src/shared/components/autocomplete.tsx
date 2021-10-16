@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { Stack, TextField, Autocomplete } from '@mui/material';
 import { debounceFn } from '../debounceFn';
 
@@ -27,6 +27,13 @@ const AutoComp: FC<Props> = ({
   };
 
   const debounced = useMemo(() => debounceFn(inputChange, 250), []);
+
+  useEffect(() => {
+    return () => {
+      debounced.cancel();
+    };
+  }, []);
+
   return (
     <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete

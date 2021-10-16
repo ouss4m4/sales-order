@@ -12,6 +12,7 @@ import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import logo from './logo.svg';
+import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';
 
 function App() {
@@ -64,8 +65,11 @@ function App() {
             <Route path="/clients/:cardcode">
               <ClientDetails />
             </Route>
-            <Route path="/orders">
+            <Route exact path="/orders">
               <OrderPage />
+            </Route>
+            <Route path="/orders/:orderId">
+              <OrderDetailsPage />
             </Route>
           </Switch>
         </div>

@@ -1,4 +1,3 @@
-import { apiUrl } from '../core/consts';
 import { IOrder, IOrderHeader } from '../order/typings';
 
 class OrderApi {
@@ -45,4 +44,4 @@ class OrderApi {
   }
 }
 
-export const orderApi = new OrderApi(apiUrl);
+export const orderApi = new OrderApi('/api');

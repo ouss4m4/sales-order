@@ -1,4 +1,3 @@
-import { apiUrl } from '../core/consts';
 import { IItem } from '../item/typing/IItem';
 
 class ItemApi {
@@ -70,4 +69,4 @@ class ItemApi {
   }
 }
 
-export const itemApi = new ItemApi(apiUrl);
+export const itemApi = new ItemApi('/api');

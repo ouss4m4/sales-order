@@ -1,5 +1,4 @@
 import { IClient } from '../client/typings';
-import { apiUrl } from '../core/consts';
 
 class ClientApi {
   constructor(private url: string) {}
@@ -57,4 +56,4 @@ class ClientApi {
   }
 }
 
-export const clientApi = new ClientApi(apiUrl);
+export const clientApi = new ClientApi('/api');

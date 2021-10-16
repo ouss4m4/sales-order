@@ -12,6 +12,7 @@ import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import logo from './logo.svg';
+import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';
 
@@ -51,7 +52,7 @@ function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route exact path="/">
-              <Redirect to="/clients" />
+              <Redirect to="/orders/new" />
             </Route>
             <Route exact path="/items">
               <ItemPage />
@@ -67,6 +68,9 @@ function App() {
             </Route>
             <Route exact path="/orders">
               <OrderPage />
+            </Route>
+            <Route path="/orders/new">
+              <CreateOrderPage />
             </Route>
             <Route path="/orders/:orderId">
               <OrderDetailsPage />

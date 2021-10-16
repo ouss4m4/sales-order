@@ -33,7 +33,10 @@ export default function OrderPage(): ReactElement {
   };
   return (
     <div>
-      <button> New Order </button>
+      <Link to="orders/new">
+        <button>New Order </button>
+      </Link>
+
       <table>
         <thead>
           <tr>

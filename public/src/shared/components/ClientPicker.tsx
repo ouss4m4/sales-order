@@ -7,7 +7,7 @@ interface Props {
   clientSelected: (client: IClient) => void;
 }
 
-const ClientPicker = (props: Props) => {
+const ClientPicker = ({ clientSelected }: Props) => {
   const [clients, setClients] = useState<IClient[]>([]);
   const [chunk, setChunk] = useState('');
   const getClients = async (val: string) => {
@@ -17,9 +17,6 @@ const ClientPicker = (props: Props) => {
   useEffect(() => {
     getClients(chunk);
   }, [chunk]);
-  const optionSelected = (client: IClient) => {
-    console.log(client);
-  };
 
   const inputChange = (val: string) => {
     if (val === '') {
@@ -32,7 +29,7 @@ const ClientPicker = (props: Props) => {
   return (
     <>
       <AutoComp
-        onOptionSelected={optionSelected}
+        onOptionSelected={clientSelected}
         onInputChange={inputChange}
         showByKey={'cardName'}
         label={'Client'}

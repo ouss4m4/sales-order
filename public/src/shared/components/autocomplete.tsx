@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Stack, TextField, Autocomplete } from '@mui/material';
-import { debounceFn } from './debounceFn';
+import { debounceFn } from '../debounceFn';
 
 interface Props {
   options: { [key: string]: any }[];

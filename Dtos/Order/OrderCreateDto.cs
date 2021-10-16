@@ -7,8 +7,8 @@ namespace sales_order.Orders.Dtos
 {
     public class OrderCreateDto
     {
-        public DateTime DocDate { get; set; }
-        public DateTime DocDueDate { get; set; }
+        public DateTime DocDate { get; set; } = DateTime.Today;
+        public DateTime DocDueDate { get; set; } = DateTime.Today.AddDays(1);
         public int CardCode { get; set; }
         public string CardName { get; set; }
         public string BillingAddress { get; set; }

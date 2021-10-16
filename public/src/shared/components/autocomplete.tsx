@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Stack, TextField, Autocomplete } from '@mui/material';
 import { debounceFn } from './debounceFn';
 
@@ -17,7 +17,7 @@ const AutoComp: FC<Props> = ({
   onOptionSelected,
   onInputChange,
 }) => {
-  const optionChange = (e: any, val: string) => {
+  const optionChange = (val: string) => {
     const selected = options.find((opt) => opt[showByKey] === val);
     onOptionSelected(selected);
   };
@@ -26,11 +26,11 @@ const AutoComp: FC<Props> = ({
     onInputChange(e.target.value);
   };
 
-  const debounced = useCallback(debounceFn(inputChange, 250), []);
+  const debounced = useMemo(() => debounceFn(inputChange, 250), []);
   return (
     <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
-        onChange={(a, b, c, d) => optionChange}
+        onChange={(ev, val) => optionChange(val)}
         freeSolo
         disableClearable
         options={options.map((option) => option[showByKey])}

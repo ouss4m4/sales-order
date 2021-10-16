@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { clientApi } from '../../api/client';
 import { IClient } from '../../client/typings';
 import AutoComp from './autocomplete';
 
@@ -7,20 +8,24 @@ interface Props {
 }
 
 const ClientPicker = (props: Props) => {
-  const [clients, setClients] = useState([]);
+  const [clients, setClients] = useState<IClient[]>([]);
   const [chunk, setChunk] = useState('');
-  const getClients = (val: string) => {
-    console.log('getting clients');
-    setClients([]);
+  const getClients = async (val: string) => {
+    const list = await clientApi.getClients();
+    setClients(list);
   };
   useEffect(() => {
     getClients(chunk);
   }, [chunk]);
   const optionSelected = (client: IClient) => {
-    console.log('Client Picked success: ', client);
+    console.log(client);
   };
 
   const inputChange = (val: string) => {
+    if (val === '') {
+      setClients([]);
+      return;
+    }
     setChunk(val);
   };
 

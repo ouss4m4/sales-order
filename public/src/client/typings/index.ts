@@ -1,5 +1,5 @@
 export interface IClient {
-  cardCode: number;
+  cardCode: number | undefined;
   cardName: string;
   shippingAddress: string;
   billingAddress: string;

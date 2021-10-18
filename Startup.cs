@@ -80,7 +80,7 @@ namespace sales_order
                 endpoints.MapControllers();
             });
 
-            // PrepDb.PrepPopulation(app);
+
         }
     }
 }

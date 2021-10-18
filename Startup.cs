@@ -44,7 +44,7 @@ namespace sales_order
             });
 
             services.AddDbContext<AppDbContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("v2")));
+                opt.UseSqlServer(Configuration.GetConnectionString("mySqlDb")));
             services.AddScoped<IItemRepo, ItemRepo>();
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();

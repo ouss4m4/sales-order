@@ -56,6 +56,11 @@ namespace sales_order
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "sales_order", Version = "v1" });
             });
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "webapp";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,7 +73,8 @@ namespace sales_order
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseRouting();
 
             app.UseAuthentication();
@@ -78,6 +84,12 @@ namespace sales_order
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                // configure the path to the folder where the static `index.html` is
+                spa.Options.SourcePath = "webapp";
             });
 
 

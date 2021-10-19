@@ -1,6 +1,6 @@
 import React from 'react';
-import OrderHeader from '../OrderHeader/OrderHeader';
-import OrderLines from '../OrderLines/OrderLines';
+import OrderHeader from './OrderHeader/OrderHeader';
+import OrderLines from './OrderLines/OrderLines';
 import { IOrder } from '../typings';
 
 interface Props {

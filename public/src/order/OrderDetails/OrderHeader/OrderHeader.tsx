@@ -1,7 +1,7 @@
 import { Card } from '@mui/material';
 import React from 'react';
-import { formatDate } from '../../shared/dateHelper';
-import { IOrderHeader } from '../typings';
+import { formatDate } from '../../../shared/dateHelper';
+import { IOrderHeader } from '../../typings';
 
 interface Props {
   header: IOrderHeader;

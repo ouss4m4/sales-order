@@ -31,13 +31,6 @@ const columns: readonly Column[] = [
   },
 ];
 
-interface Data {
-  num: number;
-  itemName: string;
-  description: string;
-  quantity: number;
-}
-
 interface Props {
   lines: IOrderLine[];
 }

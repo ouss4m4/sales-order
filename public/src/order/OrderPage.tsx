@@ -20,7 +20,7 @@ export default function OrderPage(): ReactElement {
       }).format(date);
     };
     return list.map((or) => (
-      <tr>
+      <tr key={or.orderId}>
         <td>{or.orderId}</td>
         <td>{or.cardName}</td>
         <td>{formatDate(or.docDate)}</td>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container } from '@mui/material';
 import { itemApi } from '../api/item';
 import AddItem from './components/AddItem';
 import { ItemsTable } from './ItemsList/ItemsTable';
@@ -23,9 +24,9 @@ export const ItemPage = (props: Props) => {
   };
 
   return (
-    <>
+    <Container maxWidth="lg">
       <AddItem onItemAdded={addItem} />
       <ItemsTable Items={list} />
-    </>
+    </Container>
   );
 };

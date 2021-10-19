@@ -1,4 +1,13 @@
 import React, { FC, useReducer } from 'react';
+import CSS from 'csstype';
+
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 import { IItem } from '../typing/IItem';
 
 interface Props {
@@ -19,6 +28,14 @@ interface IAction {
 }
 
 const AddItem: FC<Props> = ({ onItemAdded }) => {
+  const [dialogOpen, setDialog] = React.useState(false);
+  const handleClickOpen = () => {
+    setDialog(true);
+  };
+
+  const handleClose = () => {
+    setDialog(false);
+  };
   const initialFormState: IFormState = {
     itemname: '',
     description: '',
@@ -42,7 +59,9 @@ const AddItem: FC<Props> = ({ onItemAdded }) => {
 
   const [formState, dispatch] = useReducer(formReducer, initialFormState);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     dispatch({
       type: 'INPUT_CHANGE',
       field: e.target.name,
@@ -61,44 +80,69 @@ const AddItem: FC<Props> = ({ onItemAdded }) => {
     // @TODO: Add Validation using the model ?
     onItemAdded(Item);
     dispatch({ type: 'RESET' });
+    handleClose();
   };
 
+  const fieldStyle: CSS.Properties = {
+    margin: '10px',
+  };
   return (
-    <form onSubmit={(e) => onFormSubmit(e)}>
-      <input
-        type="text"
-        name="itemname"
-        placeholder="Name"
-        onChange={(e) => handleInputChange(e)}
-        value={formState.itemname}
-        required
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="Description"
-        onChange={(e) => handleInputChange(e)}
-        value={formState.description}
-        required
-      />
-      <input
-        type="number"
-        name="stockqty"
-        placeholder="Quantity"
-        onChange={(e) => handleInputChange(e)}
-        value={formState.stockqty}
-        required
-      />
-      <input
-        type="number"
-        name="unitprice"
-        placeholder="Price"
-        onChange={(e) => handleInputChange(e)}
-        value={formState.unitprice}
-        required
-      />
-      <input type="submit" name="submit" value="add" required />
-    </form>
+    <>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Add New Item
+      </Button>
+      <Dialog open={dialogOpen} onClose={handleClose}>
+        <DialogTitle>Add New Item</DialogTitle>
+        <DialogContent style={{ minWidth: '450px' }}>
+          <form
+            onSubmit={(e) => onFormSubmit(e)}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <TextField
+              type="text"
+              name="itemname"
+              label="Name"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.itemname}
+              style={fieldStyle}
+              required
+            />
+
+            <TextField
+              type="text"
+              name="description"
+              label="Description"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.description}
+              style={fieldStyle}
+              required
+            />
+            <TextField
+              type="number"
+              name="stockqty"
+              label="Quantity"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.stockqty}
+              style={fieldStyle}
+              required
+            />
+            <TextField
+              type="number"
+              name="unitprice"
+              label="Price"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.unitprice}
+              style={fieldStyle}
+              required
+            />
+            <Button type="submit" name="submit" value="add">
+              Add
+            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

@@ -8,10 +8,10 @@ import { IItem } from './typing/IItem';
 interface Props {}
 
 export const ItemPage = (props: Props) => {
+  const [list, setList] = useState<IItem[]>([]);
   useEffect(() => {
     fetchItems();
   }, []);
-  const [list, setList] = useState<IItem[]>([]);
 
   const fetchItems = async () => {
     const result = await itemApi.getItems();

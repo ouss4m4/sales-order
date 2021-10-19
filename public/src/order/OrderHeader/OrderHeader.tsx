@@ -8,8 +8,7 @@ interface Props {
 }
 
 const OrderHeader = ({ header }: Props) => {
-  const { cardName, billingAddress, shippingAddress, docDate, docDueDate } =
-    header;
+  const { cardName, shippingAddress, docDate, docDueDate } = header;
   return (
     <Card
       style={{
@@ -22,10 +21,7 @@ const OrderHeader = ({ header }: Props) => {
         <p>Client:</p>
         <strong style={{ marginLeft: '4px' }}>{cardName}</strong>
       </div>
-      {/* <div style={{ display: 'flex', alignItems: 'center' }}>
-        <p>Billing Address:</p>
-        <p>{billingAddress}</p>
-      </div> */}
+
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <p>Shipping Address:</p>
         <strong style={{ marginLeft: '4px' }}>{shippingAddress}</strong>

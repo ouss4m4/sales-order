@@ -37,11 +37,13 @@ export const ItemsTable = ({ Items }: Props) => {
       id: 'stockQty',
       label: 'Quantity',
       minWidth: 170,
+      align: 'right',
     },
     {
       id: 'unitPrice',
       label: 'Unit Price',
       minWidth: 170,
+      align: 'right',
     },
     {
       id: 'Details',
@@ -74,8 +76,13 @@ export const ItemsTable = ({ Items }: Props) => {
                     const value = row[column.id];
                     if (column.id === 'Details') {
                       return (
-                        <TableCell>
-                          <Link to={`/items/${row.itemCode}`}>details</Link>
+                        <TableCell key={column.id}>
+                          <Link
+                            to={`/items/${row.itemCode}`}
+                            style={{ textDecoration: 'none' }}
+                          >
+                            Details
+                          </Link>
                         </TableCell>
                       );
                     }

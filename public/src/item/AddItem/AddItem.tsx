@@ -112,6 +112,7 @@ const AddItem: FC<Props> = ({ onItemAdded }) => {
               type="text"
               name="description"
               label="Description"
+              multiline
               onChange={(e) => handleInputChange(e)}
               value={formState.description}
               style={fieldStyle}

@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react';
+import CSS from 'csstype';
+import { Button, Card, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { IItem } from '../typing/IItem';
 
@@ -45,7 +47,9 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
     SetEditing(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     let input = e.target;
     setFormState({
       ...formState,
@@ -72,78 +76,95 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
   };
 
   return (
-    <div>
+    <>
       {item && (
         <div>
-          <div className="two-cols">
-            <strong>ItemName: </strong>
-            {editing ? (
-              <input
-                type="text"
-                value={formState.itemName}
-                name="itemName"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <span>{item.itemName}</span>
-            )}
+          <div style={formGroup}>
+            <TextField
+              type="text"
+              value={formState.itemName}
+              name="itemName"
+              label="Name"
+              onChange={(e) => handleInputChange(e)}
+              style={fieldStyle}
+              inputProps={{ readOnly: editing ? false : true }}
+            />
+
+            <TextField
+              type="text"
+              value={formState.description}
+              name="description"
+              label="Description"
+              multiline
+              onChange={(e) => handleInputChange(e)}
+              style={fieldStyle}
+              inputProps={{ readOnly: editing ? false : true }}
+            />
+
+            <TextField
+              type="text"
+              value={formState.stockQty}
+              name="stockQty"
+              label="Quantity"
+              onChange={(e) => handleInputChange(e)}
+              style={fieldStyle}
+              inputProps={{ readOnly: editing ? false : true }}
+            />
+
+            <TextField
+              type="text"
+              value={formState.unitPrice}
+              name="unitPrice"
+              label="Price"
+              onChange={(e) => handleInputChange(e)}
+              style={fieldStyle}
+              inputProps={{ readOnly: editing ? false : true }}
+            />
           </div>
-          <div className="two-cols">
-            <strong>Description: </strong>
+
+          <div style={btnGroup}>
+            <Button variant="outlined" color="error" onClick={onDeleteClick}>
+              Delete
+            </Button>
+
             {editing ? (
-              <input
-                type="text"
-                value={formState.description}
-                name="description"
-                onChange={(e) => handleInputChange(e)}
-              />
+              <Button variant="outlined" color="success" onClick={onSaveClick}>
+                Save
+              </Button>
             ) : (
-              <p>{item.description}</p>
-            )}
-          </div>
-          <div className="two-cols">
-            <strong>Quantity: </strong>{' '}
-            {editing ? (
-              <input
-                type="text"
-                value={formState.stockQty}
-                name="stockQty"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <p>{item.stockQty}</p>
-            )}
-          </div>
-          <div>
-            <strong>Price: </strong>{' '}
-            {editing ? (
-              <input
-                type="text"
-                value={formState.unitPrice}
-                name="unitPrice"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <p>{item.unitPrice}</p>
-            )}
-          </div>
-          <div>
-            {!editing && <button onClick={onDeleteClick}>Delete</button>}
-            {editing ? (
-              <button onClick={onSaveClick}>Save</button>
-            ) : (
-              <button onClick={onEditClick}>Edit</button>
+              <Button variant="outlined" onClick={onEditClick}>
+                Edit
+              </Button>
             )}
             {editing ? (
-              <button onClick={onCancelClick}>Cancel</button>
+              <Button variant="outlined" onClick={onCancelClick}>
+                Cancel
+              </Button>
             ) : (
-              <button onClick={onBackClick}>Back</button>
+              <Button variant="outlined" onClick={onBackClick}>
+                Back
+              </Button>
             )}
           </div>
         </div>
       )}
-    </div>
+    </>
   );
+};
+
+const btnGroup: CSS.Properties = {
+  minWidth: '180px',
+  display: 'flex',
+  justifyContent: 'space-around',
+};
+const fieldStyle: CSS.Properties = {
+  margin: '10px',
+};
+const formGroup: CSS.Properties = {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '8px',
+  minWidth: '450px',
 };
 
 export default ItemDetails;

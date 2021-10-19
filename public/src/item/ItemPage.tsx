@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import { itemApi } from '../api/item';
-import AddItem from './components/AddItem';
+import AddItem from './AddItem/AddItem';
 import { ItemsTable } from './ItemsList/ItemsTable';
 import { IItem } from './typing/IItem';
 

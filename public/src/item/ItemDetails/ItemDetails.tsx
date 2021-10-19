@@ -101,7 +101,7 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
           />
 
           <TextField
-            type="text"
+            type="number"
             value={formState.stockQty}
             name="stockQty"
             label="Quantity"
@@ -111,7 +111,7 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
           />
 
           <TextField
-            type="text"
+            type="number"
             value={formState.unitPrice}
             name="unitPrice"
             label="Price"

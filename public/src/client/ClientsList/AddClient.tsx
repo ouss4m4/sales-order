@@ -1,4 +1,12 @@
 import React, { useState } from 'react';
+import CSS from 'csstype';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+} from '@mui/material';
 import { IClient } from '../typings';
 
 interface Props {
@@ -6,6 +14,14 @@ interface Props {
 }
 
 const AddClient = ({ onClientAdded }: Props) => {
+  const [dialogOpen, setDialog] = React.useState(false);
+  const handleClickOpen = () => {
+    setDialog(true);
+  };
+
+  const handleClose = () => {
+    setDialog(false);
+  };
   const initialFormState = {
     cardName: '',
     shippingAddress: '',
@@ -14,7 +30,9 @@ const AddClient = ({ onClientAdded }: Props) => {
   };
 
   const [formState, setFormState] = useState(initialFormState);
-  const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     let input = ev.target;
     setFormState({
       ...formState,
@@ -32,47 +50,72 @@ const AddClient = ({ onClientAdded }: Props) => {
     };
     onClientAdded(client);
     setFormState(initialFormState);
+    handleClose();
   };
 
   return (
-    <div>
-      <form onSubmit={(e) => onFormSubmit(e)}>
-        <input
-          type="text"
-          name="cardName"
-          placeholder="Name"
-          onChange={(e) => handleInputChange(e)}
-          value={formState.cardName}
-          required
-        />
-        <input
-          type="text"
-          name="shippingAddress"
-          placeholder="Shipping Address"
-          onChange={(e) => handleInputChange(e)}
-          value={formState.shippingAddress}
-          required
-        />
-        <input
-          type="text"
-          name="billingAddress"
-          placeholder="Billing Address"
-          onChange={(e) => handleInputChange(e)}
-          value={formState.billingAddress}
-          required
-        />
-        <input
-          type="text"
-          name="phoneNumber"
-          placeholder="Phone"
-          onChange={(e) => handleInputChange(e)}
-          value={formState.phoneNumber}
-          required
-        />
-        <input type="submit" name="submit" value="add" required />
-      </form>
-    </div>
+    <>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Add Client
+      </Button>
+      <Dialog open={dialogOpen} onClose={handleClose}>
+        <DialogTitle>Add New Item</DialogTitle>
+        <DialogContent style={{ minWidth: '450px' }}>
+          <form
+            onSubmit={(e) => onFormSubmit(e)}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <TextField
+              type="text"
+              name="cardName"
+              label="Name"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.cardName}
+              style={fieldStyle}
+              required
+            />
+
+            <TextField
+              type="text"
+              name="shippingAddress"
+              label="Shipping Address"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.shippingAddress}
+              style={fieldStyle}
+              required
+            />
+            <TextField
+              type="text"
+              name="billingAddress"
+              label="Billing Address"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.billingAddress}
+              style={fieldStyle}
+              required
+            />
+
+            <TextField
+              type="text"
+              name="phoneNumber"
+              label="Phone"
+              onChange={(e) => handleInputChange(e)}
+              value={formState.phoneNumber}
+              style={fieldStyle}
+              required
+            />
+            <Button type="submit" name="submit" value="add">
+              Add
+            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   );
+};
+
+const fieldStyle: CSS.Properties = {
+  margin: '10px',
 };
 
 export default AddClient;

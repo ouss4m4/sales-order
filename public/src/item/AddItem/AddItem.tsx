@@ -83,9 +83,6 @@ const AddItem: FC<Props> = ({ onItemAdded }) => {
     handleClose();
   };
 
-  const fieldStyle: CSS.Properties = {
-    margin: '10px',
-  };
   return (
     <>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -147,4 +144,7 @@ const AddItem: FC<Props> = ({ onItemAdded }) => {
   );
 };
 
+const fieldStyle: CSS.Properties = {
+  margin: '10px',
+};
 export default AddItem;

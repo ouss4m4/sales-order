@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router';
+import CSS from 'csstype';
 import { IClient } from '../typings';
 
 interface Props {
@@ -17,7 +19,9 @@ const ClientDetails = ({ client, onEditClient }: Props) => {
     billingAddress: client.billingAddress,
     phoneNumber: client.phoneNumber,
   });
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     let input = e.target;
     setFormState({
       ...formState,
@@ -53,76 +57,82 @@ const ClientDetails = ({ client, onEditClient }: Props) => {
 
   return (
     <div>
-      {client && (
-        <div>
-          <div className="two-cols">
-            <strong>CardName: </strong>
-            {editing ? (
-              <input
-                type="text"
-                value={formState.cardName}
-                name="cardName"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <span>{client.cardName}</span>
-            )}
-          </div>
-          <div className="two-cols">
-            <strong>Shipping Address: </strong>
-            {editing ? (
-              <input
-                type="text"
-                value={formState.shippingAddress}
-                name="shippingAddress"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <p>{client.shippingAddress}</p>
-            )}
-          </div>
-          <div className="two-cols">
-            <strong>Billing Address: </strong>
-            {editing ? (
-              <input
-                type="text"
-                value={formState.billingAddress}
-                name="billingAddress"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <p>{client.billingAddress}</p>
-            )}
-          </div>
-          <div>
-            <strong>Phone Number: </strong>
-            {editing ? (
-              <input
-                type="text"
-                value={formState.phoneNumber}
-                name="unitPrice"
-                onChange={(e) => handleInputChange(e)}
-              />
-            ) : (
-              <p>{client.phoneNumber}</p>
-            )}
-          </div>
-          <div>
-            {editing ? (
-              <button onClick={onSaveClick}>Save</button>
-            ) : (
-              <button onClick={onEditClick}>Edit</button>
-            )}
-            {editing ? (
-              <button onClick={onCancelClick}>Cancel</button>
-            ) : (
-              <button onClick={onBackClick}>Back</button>
-            )}
-          </div>
-        </div>
-      )}
+      <div style={formGroup}>
+        <TextField
+          type="text"
+          value={formState.cardName}
+          name="cardName"
+          label="Name"
+          onChange={(e) => handleInputChange(e)}
+          style={fieldStyle}
+          inputProps={{ readOnly: editing ? false : true }}
+        />
+        <TextField
+          type="text"
+          value={formState.shippingAddress}
+          name="shippingAddress"
+          label="Shipping Address"
+          onChange={(e) => handleInputChange(e)}
+          style={fieldStyle}
+          inputProps={{ readOnly: editing ? false : true }}
+        />
+        <TextField
+          type="text"
+          value={formState.billingAddress}
+          name="billingAddress"
+          label="Billing Address"
+          onChange={(e) => handleInputChange(e)}
+          style={fieldStyle}
+          inputProps={{ readOnly: editing ? false : true }}
+        />
+        <TextField
+          type="text"
+          value={formState.phoneNumber}
+          name="phoneNumber"
+          label="Phone Number"
+          onChange={(e) => handleInputChange(e)}
+          style={fieldStyle}
+          inputProps={{ readOnly: editing ? false : true }}
+        />
+      </div>
+
+      <div style={btnGroup}>
+        {editing ? (
+          <Button variant="outlined" color="success" onClick={onSaveClick}>
+            Save
+          </Button>
+        ) : (
+          <Button variant="outlined" onClick={onEditClick}>
+            Edit
+          </Button>
+        )}
+        {editing ? (
+          <Button variant="outlined" onClick={onCancelClick}>
+            Cancel
+          </Button>
+        ) : (
+          <Button variant="outlined" onClick={onBackClick}>
+            Back
+          </Button>
+        )}
+      </div>
     </div>
   );
+};
+
+const btnGroup: CSS.Properties = {
+  minWidth: '180px',
+  display: 'flex',
+  justifyContent: 'space-around',
+};
+const fieldStyle: CSS.Properties = {
+  margin: '10px',
+};
+const formGroup: CSS.Properties = {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '8px',
+  minWidth: '450px',
 };
 
 export default ClientDetails;

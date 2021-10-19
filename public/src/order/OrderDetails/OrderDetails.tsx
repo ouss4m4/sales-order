@@ -1,4 +1,6 @@
 import React from 'react';
+import OrderHeader from '../OrderHeader/OrderHeader';
+import OrderLines from '../OrderLines/OrderLines';
 import { IOrder } from '../typings';
 
 interface Props {
@@ -6,36 +8,10 @@ interface Props {
 }
 
 const OrderDetails = ({ order }: Props) => {
-  const renderRows = () => {
-    return order.orderLines.map((line, i) => (
-      <tr key={line.lineId}>
-        <td>{i + 1}</td>
-        <td>{line.itemName}</td>
-        <td>{line.description}</td>
-        <td>{line.quantity}</td>
-      </tr>
-    ));
-  };
   return (
     <div>
-      {/* Order Header */}
-      <div>
-        <p>{order.cardName}</p>
-        <p>{order.docDate}</p>
-        <p>{order.docDueDate}</p>
-        <p>{order.shippingAddress}</p>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>{renderRows()}</tbody>
-        </table>
-      </div>
+      <OrderHeader header={order} />
+      <OrderLines lines={order.orderLines} />
     </div>
   );
 };

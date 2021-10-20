@@ -1,6 +1,6 @@
 # Sales Order App
 
-Work In Progress...
+Work In Progress... Deployed at https://salesorder-app.azurewebsites.net/
 
 Web Application to create sales orders for clients.
 
@@ -127,8 +127,18 @@ public class OrderLine
 
 ## FrontEnd
 
-Todo: React app ...
+React App served from a static folder through Dotnet server
+
+- Items Module CRUD Openrations ✔  
+- Clients Module CRUD Operations ✔  
+- Orders Module:
+  -  Show Orders List ✔
+  -  Show Order Details ✔
+  -  Create A New Order 
+
 
 ## Devops
+
+Azure Deployment at https://salesorder-app.azurewebsites.net/
 
 Docker & K8S deployment maybe ...

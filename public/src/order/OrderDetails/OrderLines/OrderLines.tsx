@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,7 +17,7 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: 'num', label: '' },
+  { id: '', label: '' },
   { id: 'itemName', label: 'Name', minWidth: 300 },
   {
     id: 'description',
@@ -31,11 +31,11 @@ const columns: readonly Column[] = [
   },
 ];
 
-interface Props {
+type Props = {
   lines: IOrderLine[];
-}
+};
 
-const OrderLines = ({ lines }: Props) => {
+const OrderLines: FC<Props> = ({ lines, children }) => {
   const rows = lines;
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -55,13 +55,16 @@ const OrderLines = ({ lines }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
               return (
-                <TableRow hover tabIndex={-1} key={row.itemCode}>
-                  {columns.map((column, i) => {
+                <TableRow hover tabIndex={-1} key={`${row.itemName + i}`}>
+                  {columns.map((column, j) => {
                     const value = row[column.id] || i + 1;
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell
+                        key={`${row.itemCode + i + j}`}
+                        align={column.align}
+                      >
                         {value}
                       </TableCell>
                     );
@@ -69,6 +72,7 @@ const OrderLines = ({ lines }: Props) => {
                 </TableRow>
               );
             })}
+            {children}
           </TableBody>
         </Table>
       </TableContainer>

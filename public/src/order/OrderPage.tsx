@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { orderApi } from '../api/order';
@@ -16,7 +17,7 @@ export default function OrderPage(): ReactElement {
   return (
     <div>
       <Link to="orders/new">
-        <button>New Order </button>
+        <Button variant="outlined">New Order</Button>
       </Link>
       <OrdersList Orders={list} />
     </div>

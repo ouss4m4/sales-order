@@ -1,5 +1,5 @@
 export interface IOrderHeader {
-  orderId: number;
+  orderId?: number;
   docDate: string;
   docDueDate: string;
   cardCode: number;
@@ -8,8 +8,8 @@ export interface IOrderHeader {
   shippingAddress: string;
 }
 export interface IOrderLine {
-  lineId: number;
-  orderId: number;
+  lineId?: number;
+  orderId?: number;
   itemCode: number;
   itemName: string;
   description: string;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { IClient } from '../../client/typings';
 import { IItem } from '../../item/typing/IItem';
 import OrderHeader from '../OrderDetails/OrderHeader/OrderHeader';
@@ -9,6 +10,7 @@ import OrderLines from '../OrderDetails/OrderLines/OrderLines';
 import LinePicker from './LinePicker/LinePicker';
 import { Button } from '@mui/material';
 import { orderApi } from '../../api/order';
+import { useHistory } from 'react-router';
 
 interface Props {}
 
@@ -16,7 +18,7 @@ const CreateOrderPage = (props: Props) => {
   const [client, setClient] = useState<IClient>();
   const [header, setHeader] = useState<IOrderHeader>();
   const [lines, setLines] = useState<IOrderLine[]>([]);
-
+  const history = useHistory();
   const onClientSelected = (client: IClient) => {
     const emptyHeader: IOrderHeader = {
       ...client,
@@ -51,7 +53,7 @@ const CreateOrderPage = (props: Props) => {
       orderLines: lines.filter((l) => l.quantity > 0),
     };
     const created = await orderApi.addOrder(order);
-    console.log(created);
+    history.push('/orders');
   };
   return (
     <>

@@ -52,7 +52,7 @@ function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route exact path="/">
-              <Redirect to="/orders/new" />
+              <Redirect to="/orders" />
             </Route>
             <Route exact path="/items">
               <ItemPage />

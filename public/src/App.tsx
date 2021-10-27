@@ -11,10 +11,12 @@ import ClientDetails from './client/ClientDetails/ClientDetailsPage';
 import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
+import LoginPage from './login/LoginPage';
 import logo from './logo.svg';
 import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';
+import { authService } from './shared/authservice';
 
 function App() {
   return (
@@ -33,26 +35,27 @@ function App() {
             alignItems: 'center',
           }}
         >
-          <nav
-            style={{
-              display: 'flex',
-              width: 250,
-              justifyContent: 'space-evenly',
-              marginBottom: 40,
-            }}
-          >
-            <Link to="/items">Items</Link>
+          {authService.isUserLoggedIn() ? (
+            <nav
+              style={{
+                display: 'flex',
+                width: 250,
+                justifyContent: 'space-evenly',
+                marginBottom: 40,
+              }}
+            >
+              <Link to="/items">Items</Link>
 
-            <Link to="/clients">Clients</Link>
+              <Link to="/clients">Clients</Link>
 
-            <Link to="/orders">Orders</Link>
-          </nav>
-
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+              <Link to="/orders">Orders</Link>
+            </nav>
+          ) : (
+            <Redirect to="/login" />
+          )}
           <Switch>
-            <Route exact path="/">
-              <Redirect to="/orders" />
+            <Route path="/login">
+              <LoginPage />
             </Route>
             <Route exact path="/items">
               <ItemPage />

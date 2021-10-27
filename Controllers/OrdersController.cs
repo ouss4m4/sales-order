@@ -65,7 +65,6 @@ namespace sales_order.Orders.Controllers
             orderPatch.ApplyTo(order);
             await repo.updateOrder(order);
             return Ok(mapper.Map<OrderReadDto>(order));
-
         }
     }
 }

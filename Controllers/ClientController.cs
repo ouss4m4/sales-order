@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using sales_order.Clients.Data;
 using sales_order.Clients.Dtos;
 using sales_order.Clients.Models;
+using sales_order.Users.Models;
 
 namespace sales_order.Clients.Controllers
 {
@@ -22,7 +23,6 @@ namespace sales_order.Clients.Controllers
             this.repo = repo;
             this.mapper = mapper;
         }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientReadDto>>> GetAllClients()
         {
@@ -46,6 +46,7 @@ namespace sales_order.Clients.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Client>> CreateClient(ClientCreateDto dto)
         {
@@ -57,6 +58,7 @@ namespace sales_order.Clients.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult<Client>> EditClient(ClientReadDto dto)
         {

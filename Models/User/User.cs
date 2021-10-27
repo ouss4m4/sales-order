@@ -1,12 +1,21 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace sales_order.Users.Models
 {
+    public enum IRoles
+    {
+        Admin,
+        SalesPerson
+    }
     public class User
     {
+        public string Username { get; set; }
         [Required]
-        public string username { get; set; }
+        public string Password { get; set; }
         [Required]
-        public string password { get; set; }
+        public string Email { get; set; }
+        [Required]
+        public List<IRoles> Roles { get; set; } = new List<IRoles> { IRoles.SalesPerson };
     }
 }

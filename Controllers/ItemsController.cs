@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using sales_order.Items.Data;
 using sales_order.Items.Dtos;
 using sales_order.Items.Models;
+using sales_order.Users.Models;
 
 namespace sales_order.Items.Controllers
 {
@@ -22,7 +23,6 @@ namespace sales_order.Items.Controllers
             this.repo = repo;
             this.mapper = mapper;
         }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemReadDto>>> GetAllItems()
         {
@@ -37,6 +37,7 @@ namespace sales_order.Items.Controllers
             return Ok(mapper.Map<ItemReadDto>(item));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Item>> CreateItem(ItemCreateDto dto)
         {
@@ -47,6 +48,7 @@ namespace sales_order.Items.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.ItemCode }, item);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult<Item>> UpdateItem(ItemReadDto dto)
         {
@@ -56,6 +58,7 @@ namespace sales_order.Items.Controllers
             return Ok(mapper.Map<ItemReadDto>(item));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch("{id}")]
         public async Task<ActionResult> EditItem(int id, JsonPatchDocument<ItemReadDto> patchDto)
         {
@@ -71,7 +74,7 @@ namespace sales_order.Items.Controllers
             return NoContent();
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<ActionResult> DeleteItem(ItemReadDto dto)
         {
@@ -80,7 +83,5 @@ namespace sales_order.Items.Controllers
             await repo.SaveChanges();
             return NoContent();
         }
-
-
     }
 }

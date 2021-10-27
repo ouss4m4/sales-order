@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using sales_order.Users.Models;
 using sales_order.Users.Services;
 
-[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class LoginController : ControllerBase
@@ -14,12 +13,10 @@ public class LoginController : ControllerBase
         _authService = authService;
     }
 
-    //POST: /Login/Authenticate
-    [AllowAnonymous]
     [HttpPost]
-    public IActionResult Authenticate([FromBody] User model)
+    public IActionResult Authenticate([FromBody] LoginModel model)
     {
-        string token = _authService.Authenticate(model.username, model.password);
+        string token = _authService.Authenticate(model.Email, model.Password);
 
         if (string.IsNullOrEmpty(token))
         {

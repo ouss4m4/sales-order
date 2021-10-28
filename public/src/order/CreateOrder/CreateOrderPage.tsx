@@ -4,8 +4,7 @@ import { IClient } from '../../client/typings';
 import { IItem } from '../../item/typing/IItem';
 import OrderHeader from '../OrderDetails/OrderHeader/OrderHeader';
 import ClientPicker from '../../shared/components/ClientPicker';
-import ItemPicker from '../../shared/components/ItemPicker';
-import { IOrder, IOrderHeader, IOrderLine } from '../typings';
+import { IOrderHeader, IOrderLine } from '../typings';
 import OrderLines from '../OrderDetails/OrderLines/OrderLines';
 import LinePicker from './LinePicker/LinePicker';
 import { Button } from '@mui/material';
@@ -38,7 +37,6 @@ const CreateOrderPage = (props: Props) => {
       quantity: qty,
     };
     setLines(lines.concat(newLine));
-    // const newLines = lines.concat()
   };
 
   const createOrder = async () => {
@@ -52,7 +50,7 @@ const CreateOrderPage = (props: Props) => {
       cardName: header.cardName,
       orderLines: lines.filter((l) => l.quantity > 0),
     };
-    const created = await orderApi.addOrder(order);
+    await orderApi.addOrder(order);
     history.push('/orders');
   };
   return (

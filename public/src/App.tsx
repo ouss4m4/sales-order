@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
+
 import './App.css';
-import ClientDetails from './client/ClientDetails/ClientDetailsPage';
 import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
@@ -16,9 +15,14 @@ import logo from './logo.svg';
 import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';
-import { authService } from './shared/authservice';
+import Navbar from './shared/Navbar';
+import PrivateRoute from './shared/PrivateRoute';
 
 function App() {
+  const [login, updateLogin] = useState(false);
+  const setLoggedIn = (state: boolean) => {
+    updateLogin(state);
+  };
   return (
     <>
       <div className="App">
@@ -35,49 +39,26 @@ function App() {
             alignItems: 'center',
           }}
         >
-          {authService.isUserLoggedIn() ? (
-            <nav
-              style={{
-                display: 'flex',
-                width: 250,
-                justifyContent: 'space-evenly',
-                marginBottom: 40,
-              }}
-            >
-              <Link to="/items">Items</Link>
-
-              <Link to="/clients">Clients</Link>
-
-              <Link to="/orders">Orders</Link>
-            </nav>
-          ) : (
-            <Redirect to="/login" />
-          )}
+          {login && <Navbar />}
           <Switch>
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
             <Route path="/login">
-              <LoginPage />
+              <LoginPage updateLogin={setLoggedIn} />
             </Route>
-            <Route exact path="/items">
-              <ItemPage />
-            </Route>
-            <Route path={`/items/:itemcode`}>
-              <ItemDetailsPage />
-            </Route>
-            <Route exact path="/clients">
-              <ClientPage />
-            </Route>
-            <Route path="/clients/:cardcode">
-              <ClientDetails />
-            </Route>
-            <Route exact path="/orders">
-              <OrderPage />
-            </Route>
-            <Route path="/orders/new">
-              <CreateOrderPage />
-            </Route>
-            <Route path="/orders/:orderId">
-              <OrderDetailsPage />
-            </Route>
+            <PrivateRoute exact path="/items" component={ItemPage} />
+            <PrivateRoute path="/items/:itemcode" component={ItemDetailsPage} />
+
+            <PrivateRoute exact path="/clients" component={ClientPage} />
+            <PrivateRoute path="/clients/:cardcode" />
+
+            <PrivateRoute exact path="/orders" component={OrderPage} />
+            <PrivateRoute path="/orders/new" component={CreateOrderPage} />
+            <PrivateRoute
+              path="/orders/:orderId"
+              component={OrderDetailsPage}
+            />
           </Switch>
         </div>
       </Router>

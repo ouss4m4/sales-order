@@ -10,6 +10,9 @@ class AuthService {
     this._userLoggedIn = true;
     return result;
   }
+  public logOutUser() {
+    this._userLoggedIn = false;
+  }
 }
 
 export const authService = new AuthService();

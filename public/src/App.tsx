@@ -7,10 +7,12 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
+import ClientDetailsPage from './client/ClientDetails/ClientDetailsPage';
 import ClientPage from './client/ClientPage';
 import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import LoginPage from './login/LoginPage';
+import Logout from './login/Logout';
 import logo from './logo.svg';
 import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
@@ -47,11 +49,20 @@ function App() {
             <Route path="/login">
               <LoginPage updateLogin={setLoggedIn} />
             </Route>
+            <PrivateRoute
+              exact
+              path="/logout"
+              component={Logout}
+              updateLogin={setLoggedIn}
+            />
             <PrivateRoute exact path="/items" component={ItemPage} />
             <PrivateRoute path="/items/:itemcode" component={ItemDetailsPage} />
 
             <PrivateRoute exact path="/clients" component={ClientPage} />
-            <PrivateRoute path="/clients/:cardcode" />
+            <PrivateRoute
+              path="/clients/:cardcode"
+              component={ClientDetailsPage}
+            />
 
             <PrivateRoute exact path="/orders" component={OrderPage} />
             <PrivateRoute path="/orders/new" component={CreateOrderPage} />

@@ -29,8 +29,8 @@ namespace sales_order.Users.Services
 
         private List<User> _users = new List<User>
          {
-             new User {Username= "Admin", Email= "admin@me.com",Password= "admin",Role= IRoles.Admin },
-             new User {Username="Sales Person",Email= "sales@per.son",Password= "sales",Role=IRoles.SalesPerson }
+             new User { Username= "Admin", Email= "admin@me.com", Password="admin", Role= IRoles.Admin },
+             new User { Username="Sales Person", Email= "sales@per.son", Password="sales", Role=IRoles.SalesPerson }
          };
 
         public LoginSuccessDto Authenticate(string email, string password)
@@ -62,7 +62,7 @@ namespace sales_order.Users.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var finalToken = tokenHandler.WriteToken(token);
-            return new LoginSuccessDto { token = finalToken, Email = user.Email, Role = user.Role };
+            return new LoginSuccessDto { token = finalToken, Email = user.Email, Role = user.Role, Username = user.Username };
         }
     }
 }

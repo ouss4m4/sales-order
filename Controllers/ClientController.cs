@@ -23,6 +23,7 @@ namespace sales_order.Clients.Controllers
             this.repo = repo;
             this.mapper = mapper;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClientReadDto>>> GetAllClients()
         {

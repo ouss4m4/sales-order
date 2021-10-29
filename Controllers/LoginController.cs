@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using sales_order.Users.dtos;
 using sales_order.Users.Models;
 using sales_order.Users.Services;
 
@@ -16,13 +16,13 @@ public class LoginController : ControllerBase
     [HttpPost]
     public IActionResult Authenticate([FromBody] LoginModel model)
     {
-        string token = _authService.Authenticate(model.Email, model.Password);
+        LoginSuccessDto result = _authService.Authenticate(model.Email, model.Password);
 
-        if (string.IsNullOrEmpty(token))
+        if (result == null)
         {
             return BadRequest(new { message = "Username or password is incorrect" });
         }
 
-        return Ok(new { token });
+        return Ok(result);
     }
 }

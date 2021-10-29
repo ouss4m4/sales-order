@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using sales_order.Users.dtos;
 using sales_order.Users.Models;
 
 namespace sales_order.Users.Services
@@ -14,7 +15,7 @@ namespace sales_order.Users.Services
 
     public interface IApplicationUser
     {
-        string Authenticate(string username, string password);
+        LoginSuccessDto Authenticate(string username, string password);
 
     }
 
@@ -28,11 +29,11 @@ namespace sales_order.Users.Services
 
         private List<User> _users = new List<User>
          {
-             new User {Email= "admin@me.com",Password= "admin",Roles= new List<IRoles>{IRoles.Admin,IRoles.SalesPerson} },
-             new User {Email= "sales@per.son",Password= "sales",Roles= new List<IRoles>{IRoles.SalesPerson} }
+             new User {Username= "Admin", Email= "admin@me.com",Password= "admin",Role= IRoles.Admin },
+             new User {Username="Sales Person",Email= "sales@per.son",Password= "sales",Role=IRoles.SalesPerson }
          };
 
-        public string Authenticate(string email, string password)
+        public LoginSuccessDto Authenticate(string email, string password)
         {
             var user = _users.SingleOrDefault(x => x.Email == email && x.Password == password);
 
@@ -47,8 +48,9 @@ namespace sales_order.Users.Services
             var claims = new List<Claim>
                 {
                      new Claim(ClaimTypes.Email, user.Email),
+                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 };
-            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -59,9 +61,8 @@ namespace sales_order.Users.Services
                 Audience = Configuration["Jwt:Audience"]
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var finalToken = tokenHandler.WriteToken(token);
+            return new LoginSuccessDto { token = finalToken, Email = user.Email, Role = user.Role };
         }
-
-
     }
 }

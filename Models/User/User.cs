@@ -16,6 +16,6 @@ namespace sales_order.Users.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public List<IRoles> Roles { get; set; } = new List<IRoles> { IRoles.SalesPerson };
+        public IRoles Role { get; set; } = IRoles.SalesPerson;
     }
 }

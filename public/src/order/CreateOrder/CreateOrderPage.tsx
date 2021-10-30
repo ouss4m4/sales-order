@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { IClient } from '../../client/typings';
 import { IItem } from '../../item/typing/IItem';
@@ -17,6 +17,7 @@ const CreateOrderPage = (props: Props) => {
   const [client, setClient] = useState<IClient>();
   const [header, setHeader] = useState<IOrderHeader>();
   const [lines, setLines] = useState<IOrderLine[]>([]);
+  const lineAddRef = useRef<HTMLTableRowElement>();
   const history = useHistory();
   const onClientSelected = (client: IClient) => {
     const emptyHeader: IOrderHeader = {
@@ -37,6 +38,9 @@ const CreateOrderPage = (props: Props) => {
       quantity: qty,
     };
     setLines(lines.concat(newLine));
+    setTimeout(() => {
+      scrollToLastRow();
+    }, 120);
   };
 
   const createOrder = async () => {
@@ -52,6 +56,13 @@ const CreateOrderPage = (props: Props) => {
     };
     await orderApi.addOrder(order);
     history.push('/orders');
+  };
+  const scrollToLastRow = () => {
+    if (lineAddRef) {
+      lineAddRef.current?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
   };
   return (
     <>
@@ -69,7 +80,7 @@ const CreateOrderPage = (props: Props) => {
           <Container>
             <OrderHeader header={header} />
             <OrderLines lines={lines}>
-              <LinePicker onQtySubmit={addLineToOrder} />
+              <LinePicker onQtySubmit={addLineToOrder} ref={lineAddRef} />
             </OrderLines>
             <Button variant="outlined" color="success" onClick={createOrder}>
               Save

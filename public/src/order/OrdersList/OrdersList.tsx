@@ -26,7 +26,7 @@ interface Column {
 
 const OrdersList = ({ Orders }: Props) => {
   const columns: readonly Column[] = [
-    { id: 'orderId', label: '' },
+    { id: '', label: '' },
     { id: 'cardName', label: 'Client' },
     {
       id: 'docDate',
@@ -66,11 +66,11 @@ const OrdersList = ({ Orders }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
               return (
                 <TableRow hover tabIndex={-1} key={row.orderId}>
                   {columns.map((column) => {
-                    const value = row[column.id];
+                    const value = row[column.id] || i + 1;
                     if (column.id === 'Details') {
                       return (
                         <TableCell key={column.id}>

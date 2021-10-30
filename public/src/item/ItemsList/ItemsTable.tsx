@@ -27,7 +27,7 @@ interface Column {
 
 export const ItemsTable = ({ Items }: Props) => {
   const columns: readonly Column[] = [
-    { id: 'itemCode', label: '' },
+    { id: '', label: '' },
     { id: 'itemName', label: 'Name', minWidth: 300 },
     {
       id: 'description',
@@ -72,11 +72,11 @@ export const ItemsTable = ({ Items }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
               return (
                 <TableRow hover tabIndex={-1} key={row.itemCode}>
                   {columns.map((column) => {
-                    const value = row[column.id];
+                    const value = row[column.id] || i + 1;
                     if (column.id === 'Details') {
                       return (
                         <TableCell key={column.id}>

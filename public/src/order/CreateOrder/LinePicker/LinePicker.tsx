@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState, forwardRef } from 'react';
 import { IItem } from '../../../item/typing/IItem';
 import ItemPicker from '../../../shared/components/ItemPicker';
 
@@ -6,7 +6,7 @@ interface Props {
   onQtySubmit: (item: IItem, qty: number) => void;
 }
 
-const LinePicker: FC<Props> = ({ onQtySubmit }) => {
+const LinePicker = forwardRef<any, Props>(({ onQtySubmit }, ref) => {
   const [item, setItem] = useState<IItem>();
   const qtyInput = useRef<HTMLInputElement>(null);
   const addLine = () => {
@@ -23,7 +23,7 @@ const LinePicker: FC<Props> = ({ onQtySubmit }) => {
   };
 
   return (
-    <tr>
+    <tr ref={ref as any}>
       <td></td>
       <td>{item ? item?.itemName : <ItemPicker itemSelected={setItem} />}</td>
       <td>
@@ -37,6 +37,6 @@ const LinePicker: FC<Props> = ({ onQtySubmit }) => {
       </td>
     </tr>
   );
-};
+});
 
 export default LinePicker;

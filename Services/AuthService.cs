@@ -44,7 +44,7 @@ namespace sales_order.Users.Services
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]);
+            var key = Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s");
             var claims = new List<Claim>
                 {
                      new Claim(ClaimTypes.Email, user.Email),
@@ -57,8 +57,8 @@ namespace sales_order.Users.Services
                 IssuedAt = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = Configuration["Jwt:Issuer"],
-                Audience = Configuration["Jwt:Audience"]
+                Issuer = "bzouss.com",
+                Audience = "general"
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var finalToken = tokenHandler.WriteToken(token);

@@ -1,12 +1,12 @@
 import { IItem } from '../item/typing/IItem';
-import { headers } from './headers';
+import { getHeaders } from './headers';
 class ItemApi {
   constructor(private url: string) {}
 
   public async getItems(): Promise<IItem[]> {
     try {
       const items = await fetch(`${this.url}/items`, {
-        headers,
+        headers: getHeaders(),
       }).then((data) => data.json());
       return items;
     } catch (error) {
@@ -18,7 +18,7 @@ class ItemApi {
   public async addItem(item: IItem): Promise<void> {
     try {
       const response = await fetch(`${this.url}/items`, {
-        headers,
+        headers: getHeaders(),
         method: 'POST',
         body: JSON.stringify(item),
       }).then((data) => data.json());
@@ -31,7 +31,7 @@ class ItemApi {
   public async getItemById(itemcode: number): Promise<IItem> {
     try {
       const response = await fetch(`${this.url}/items/${itemcode}`, {
-        headers,
+        headers: getHeaders(),
       }).then((data) => data.json());
       return response;
     } catch (error: any) {
@@ -41,7 +41,7 @@ class ItemApi {
   public async editItem(item: IItem): Promise<IItem> {
     try {
       const response = await fetch(`${this.url}/items`, {
-        headers,
+        headers: getHeaders(),
         method: 'PUT',
         body: JSON.stringify(item),
       }).then((data) => data.json());
@@ -54,7 +54,7 @@ class ItemApi {
   public async deleteItem(item: IItem): Promise<boolean> {
     try {
       await fetch(`${this.url}/items`, {
-        headers,
+        headers: getHeaders(),
         method: 'DELETE',
         body: JSON.stringify(item),
       });

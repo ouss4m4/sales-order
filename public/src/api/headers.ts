@@ -1,8 +1,7 @@
 import { authService } from '../shared/authservice';
 
-const token = authService.getToken();
-export const headers = {
+export const getHeaders = () => ({
   Accept: 'application/json',
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${token}`,
-};
+  Authorization: `Bearer ${authService.getToken()}`,
+});

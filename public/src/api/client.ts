@@ -1,15 +1,11 @@
 import { IClient } from '../client/typings';
-import { headers } from './headers';
+import { getHeaders } from './headers';
 class ClientApi {
   constructor(private url: string) {}
-  private headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
   public async getClients(): Promise<IClient[]> {
     try {
       const clients = await fetch(`${this.url}/clients`, {
-        headers,
+        headers: getHeaders(),
       }).then((data) => data.json());
       return clients;
     } catch (error) {
@@ -22,7 +18,7 @@ class ClientApi {
     try {
       const response = await fetch(`${this.url}/clients`, {
         method: 'POST',
-        headers,
+        headers: getHeaders(),
         body: JSON.stringify(client),
       }).then((data) => data.json());
       return response;
@@ -34,7 +30,7 @@ class ClientApi {
   public async getClientById(cardcode: number): Promise<IClient> {
     try {
       const response = await fetch(`${this.url}/clients/${cardcode}`, {
-        headers,
+        headers: getHeaders(),
       }).then((data) => data.json());
       return response;
     } catch (error: any) {
@@ -46,7 +42,7 @@ class ClientApi {
     try {
       const response = await fetch(`${this.url}/clients`, {
         method: 'PUT',
-        headers,
+        headers: getHeaders(),
         body: JSON.stringify(client),
       }).then((data) => data.json());
       return response;

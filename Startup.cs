@@ -42,9 +42,9 @@ namespace sales_order
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         ValidateAudience = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        ValidIssuer = "bzouss.com",
+                        ValidAudience = "general",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s"))
                     };
                 });
 

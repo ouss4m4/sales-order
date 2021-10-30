@@ -1,5 +1,5 @@
 import { ILoginSuccess } from '../login/Typings';
-import { headers } from './headers';
+import { getHeaders } from './headers';
 class LoginApi {
   constructor(private url: string) {}
 
@@ -9,7 +9,7 @@ class LoginApi {
   ): Promise<ILoginSuccess> {
     try {
       const resp: ILoginSuccess = await fetch(`${this.url}/login`, {
-        headers,
+        headers: getHeaders(),
         method: 'POST',
         body: JSON.stringify({ email, password }),
       }).then((data) => data.json());

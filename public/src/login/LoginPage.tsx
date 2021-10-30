@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { authService } from '../shared/authservice';
 import LoginForm from './LoginForm/LoginForm';
@@ -9,6 +9,9 @@ interface Props {
 
 const LoginPage: FC<Props> = ({ updateLogin }) => {
   const history = useHistory();
+  useEffect(() => {
+    if (authService.isUserLoggedIn()) history.replace('/orders');
+  });
 
   const loginAsAdmin = async () => {
     await authService.tryLogin('admin@me.com', 'admin');

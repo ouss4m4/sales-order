@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
@@ -36,6 +37,17 @@ function App() {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Alert severity="info">
+            WebApp hosted of FREE Azure tier, You may face a SLOW Start
+          </Alert>
+        </div>
       </div>
       <Router>
         <div

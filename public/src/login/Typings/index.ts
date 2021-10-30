@@ -1,6 +1,10 @@
+export enum IRole {
+  Admin,
+  SalesPerson,
+}
 export interface ILoginSuccess {
   token: string;
-  Username: string;
-  Email: string;
-  Role: number;
+  username: string;
+  email: string;
+  role: IRole;
 }

@@ -1,5 +1,8 @@
+import { Container } from '@mui/material';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { clientApi } from '../api/client';
+import { IRole } from '../login/Typings';
+import { authService } from '../shared/authservice';
 import AddClient from './ClientsList/AddClient';
 import ClientsList from './ClientsList/ClientsList';
 import { IClient } from './typings';
@@ -19,11 +22,12 @@ export default function ClientPage(): ReactElement {
     await clientApi.addClient(client);
     fetchClients();
   };
+  const authorized = authService.isUserAuthorizedByRole(IRole.Admin);
 
   return (
-    <div>
-      <AddClient onClientAdded={addClient} />
+    <Container maxWidth="lg">
+      {authorized && <AddClient onClientAdded={addClient} />}
       <ClientsList clients={list} />
-    </div>
+    </Container>
   );
 }

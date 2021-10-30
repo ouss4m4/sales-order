@@ -55,7 +55,6 @@ function App() {
               <LoginPage updateLogin={setLoggedIn} />
             </Route>
 
-            <PrivateRoute exact path="/logout" component={Logout} />
             <PrivateRoute exact path="/items" component={ItemPage} />
             <PrivateRoute path="/items/:itemcode" component={ItemDetailsPage} />
 
@@ -70,6 +69,13 @@ function App() {
             <PrivateRoute
               path="/orders/:orderId"
               component={OrderDetailsPage}
+            />
+
+            <PrivateRoute
+              exact
+              path="/logout"
+              component={Logout}
+              updateLogin={setLoggedIn}
             />
           </Switch>
         </div>

@@ -7,7 +7,7 @@ import ClientPicker from '../../shared/components/ClientPicker';
 import { IOrderHeader, IOrderLine } from '../typings';
 import OrderLines from '../OrderDetails/OrderLines/OrderLines';
 import LinePicker from './LinePicker/LinePicker';
-import { Button } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { orderApi } from '../../api/order';
 import { useHistory } from 'react-router';
 
@@ -56,10 +56,17 @@ const CreateOrderPage = (props: Props) => {
   return (
     <>
       <div>
-        <h1>Create Order</h1>
+        <Typography component="h1" variant="h5" textAlign="center">
+          Create Order
+        </Typography>
+        {!client && (
+          <Typography component="h1" variant="h5" textAlign="center">
+            Please select a client first
+          </Typography>
+        )}
         {!client && <ClientPicker clientSelected={onClientSelected} />}
         {header && (
-          <div>
+          <Container>
             <OrderHeader header={header} />
             <OrderLines lines={lines}>
               <LinePicker onQtySubmit={addLineToOrder} />
@@ -67,7 +74,7 @@ const CreateOrderPage = (props: Props) => {
             <Button variant="outlined" color="success" onClick={createOrder}>
               Save
             </Button>
-          </div>
+          </Container>
         )}
       </div>
     </>

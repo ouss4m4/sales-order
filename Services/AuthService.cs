@@ -62,7 +62,7 @@ namespace sales_order.Users.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var finalToken = tokenHandler.WriteToken(token);
-            return new LoginSuccessDto { token = finalToken, Email = user.Email, Role = user.Role, Username = user.Username };
+            return new LoginSuccessDto { Token = finalToken, Email = user.Email, Role = user.Role, Username = user.Username };
         }
     }
 }

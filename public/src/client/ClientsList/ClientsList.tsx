@@ -27,7 +27,7 @@ interface Column {
 const ClientsList = ({ clients }: Props) => {
   const columns: readonly Column[] = [
     { id: 'cardCode', label: '' },
-    { id: 'cardName', label: 'Name', minWidth: 300 },
+    { id: 'cardName', label: 'Name' },
     {
       id: 'shippingAddress',
       label: 'Shipping Address',
@@ -50,8 +50,8 @@ const ClientsList = ({ clients }: Props) => {
   ];
   const rows = clients;
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{ width: '1080px', overflow: 'auto' }}>
+      <TableContainer sx={{ maxHeight: 500, width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

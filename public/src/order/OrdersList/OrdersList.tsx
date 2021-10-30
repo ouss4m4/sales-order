@@ -49,8 +49,8 @@ const OrdersList = ({ Orders }: Props) => {
   ];
   const rows = Orders;
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{ width: '1080px', overflow: 'auto' }}>
+      <TableContainer sx={{ maxHeight: 500, width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

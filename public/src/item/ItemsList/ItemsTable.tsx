@@ -20,6 +20,7 @@ interface Column {
   id: string;
   label: string;
   minWidth?: number;
+  maxWidth?: number;
   align?: 'right';
   format?: (value: number) => string;
 }
@@ -36,7 +37,6 @@ export const ItemsTable = ({ Items }: Props) => {
     {
       id: 'stockQty',
       label: 'Quantity',
-      minWidth: 170,
       align: 'right',
     },
     {
@@ -52,8 +52,8 @@ export const ItemsTable = ({ Items }: Props) => {
   ];
   const rows = Items;
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{ width: '1080px', overflow: 'auto' }}>
+      <TableContainer sx={{ maxHeight: 500, width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -61,7 +61,10 @@ export const ItemsTable = ({ Items }: Props) => {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    maxWidth: column.maxWidth,
+                  }}
                 >
                   {column.label}
                 </TableCell>

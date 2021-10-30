@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { orderApi } from '../api/order';
@@ -15,11 +15,11 @@ export default function OrderPage(): ReactElement {
     setList(result);
   };
   return (
-    <div>
+    <Container maxWidth="lg">
       <Link to="orders/new">
         <Button variant="outlined">New Order</Button>
       </Link>
       <OrdersList Orders={list} />
-    </div>
+    </Container>
   );
 }

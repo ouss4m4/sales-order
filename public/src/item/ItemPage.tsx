@@ -4,6 +4,8 @@ import { itemApi } from '../api/item';
 import AddItem from './AddItem/AddItem';
 import { ItemsTable } from './ItemsList/ItemsTable';
 import { IItem } from './typing/IItem';
+import { authService } from '../shared/authservice';
+import { IRole } from '../login/Typings';
 
 interface Props {}
 
@@ -23,9 +25,10 @@ export const ItemPage = (props: Props) => {
     fetchItems();
   };
 
+  const authorized = authService.isUserAuthorizedByRole(IRole.Admin);
   return (
     <Container maxWidth="lg">
-      <AddItem onItemAdded={addItem} />
+      {authorized && <AddItem onItemAdded={addItem} />}
       <ItemsTable Items={list} />
     </Container>
   );

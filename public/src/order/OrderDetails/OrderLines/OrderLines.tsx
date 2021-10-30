@@ -18,16 +18,14 @@ interface Column {
 
 const columns: readonly Column[] = [
   { id: '', label: '' },
-  { id: 'itemName', label: 'Name', minWidth: 300 },
+  { id: 'itemName', label: 'Name' },
   {
     id: 'description',
     label: 'Description',
-    minWidth: 170,
   },
   {
     id: 'quantity',
     label: 'Quantity',
-    minWidth: 170,
   },
 ];
 
@@ -38,8 +36,8 @@ type Props = {
 const OrderLines: FC<Props> = ({ lines, children }) => {
   const rows = lines;
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{ width: '1080px', overflow: 'auto' }}>
+      <TableContainer sx={{ maxHeight: 350, width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

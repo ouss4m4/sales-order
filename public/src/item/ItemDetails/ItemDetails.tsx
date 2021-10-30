@@ -3,6 +3,8 @@ import CSS from 'csstype';
 import { Button, TextField } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { IItem } from '../typing/IItem';
+import { authService } from '../../shared/authservice';
+import { IRole } from '../../login/Typings';
 
 interface Props {
   item: IItem;
@@ -75,6 +77,8 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
     history.goBack();
   };
 
+  const authorized = authService.isUserAuthorizedByRole(IRole.Admin);
+
   return (
     <>
       <div>
@@ -122,21 +126,39 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
         </div>
 
         <div style={btnGroup}>
-          <Button variant="outlined" color="error" onClick={onDeleteClick}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={onDeleteClick}
+            disabled={!authorized}
+          >
             Delete
           </Button>
 
           {editing ? (
-            <Button variant="outlined" color="success" onClick={onSaveClick}>
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={onSaveClick}
+              disabled={!authorized}
+            >
               Save
             </Button>
           ) : (
-            <Button variant="outlined" onClick={onEditClick}>
+            <Button
+              variant="outlined"
+              onClick={onEditClick}
+              disabled={!authorized}
+            >
               Edit
             </Button>
           )}
           {editing ? (
-            <Button variant="outlined" onClick={onCancelClick}>
+            <Button
+              variant="outlined"
+              onClick={onCancelClick}
+              disabled={!authorized}
+            >
               Cancel
             </Button>
           ) : (

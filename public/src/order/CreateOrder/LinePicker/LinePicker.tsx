@@ -25,10 +25,10 @@ const LinePicker: FC<Props> = ({ onQtySubmit }) => {
   return (
     <tr>
       <td></td>
+      <td>{item ? item?.itemName : <ItemPicker itemSelected={setItem} />}</td>
       <td>
-        {item ? item?.description : <ItemPicker itemSelected={setItem} />}
+        <p>{item?.description}</p>
       </td>
-      <td>{item?.description}</td>
       <td>
         <input ref={qtyInput} type="number" />
       </td>

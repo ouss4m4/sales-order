@@ -1,5 +1,5 @@
 import { loginApi } from '../api/login';
-import { ILoginSuccess } from '../login/Typings';
+import { ILoginSuccess, IRole } from '../login/Typings';
 
 class AuthService {
   constructor() {
@@ -10,7 +10,6 @@ class AuthService {
   private _user: ILoginSuccess | null = null;
 
   public isUserLoggedIn(): boolean {
-    console.log('isuserlogedin');
     return this._user !== null;
   }
 
@@ -43,13 +42,17 @@ class AuthService {
       const stored = localStorage.getItem('user');
       if (stored == null) return null;
       const user: ILoginSuccess = JSON.parse(stored);
-      console.log('gotcha', user);
       return user;
     } catch (error) {
       console.log('err', error);
       return null;
     }
   }
+
+  public isUserAuthorizedByRole(role: IRole): boolean {
+    return this._user?.role === role;
+  }
+
   public logOutUser() {
     this._user = null;
     localStorage.removeItem('user');

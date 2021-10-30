@@ -2,14 +2,10 @@ import React, { FC } from 'react';
 import { Redirect } from 'react-router';
 import { authService } from '../shared/authservice';
 
-interface Props {
-  updateLogin: (state: boolean) => void;
-}
+interface Props {}
 
-const Logout: FC<Props> = ({ updateLogin }) => {
+const Logout: FC<Props> = () => {
   authService.logOutUser();
-  updateLogin(false);
-
   return <Redirect to="/login" />;
 };
 

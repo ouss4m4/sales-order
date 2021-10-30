@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,14 +17,19 @@ import logo from './logo.svg';
 import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';
+import { authService } from './shared/authservice';
 import Navbar from './shared/Navbar';
 import PrivateRoute from './shared/PrivateRoute';
 
 function App() {
+  authService.getStoredUser();
   const [login, updateLogin] = useState(false);
   const setLoggedIn = (state: boolean) => {
     updateLogin(state);
   };
+  useEffect(() => {
+    updateLogin(authService.isUserLoggedIn());
+  }, []);
   return (
     <>
       <div className="App">
@@ -49,12 +54,8 @@ function App() {
             <Route path="/login">
               <LoginPage updateLogin={setLoggedIn} />
             </Route>
-            <PrivateRoute
-              exact
-              path="/logout"
-              component={Logout}
-              updateLogin={setLoggedIn}
-            />
+
+            <PrivateRoute exact path="/logout" component={Logout} />
             <PrivateRoute exact path="/items" component={ItemPage} />
             <PrivateRoute path="/items/:itemcode" component={ItemDetailsPage} />
 

@@ -4,7 +4,6 @@ import { ILoginSuccess, IRole } from '../login/Typings';
 class AuthService {
   constructor() {
     this._user = this.getStoredUser();
-    console.log('huh ?');
   }
 
   private _user: ILoginSuccess | null = null;
@@ -13,6 +12,9 @@ class AuthService {
     return this._user !== null;
   }
 
+  public getToken(): string | null {
+    return this._user ? this._user.token : null;
+  }
   public async tryLogin(email: string, password: string): Promise<boolean> {
     try {
       const user = await loginApi.loginUser(email, password);
@@ -37,8 +39,6 @@ class AuthService {
   public getStoredUser(): ILoginSuccess | null {
     try {
       if (this._user !== null) return this._user;
-      console.log('getStoredUser');
-
       const stored = localStorage.getItem('user');
       if (stored == null) return null;
       const user: ILoginSuccess = JSON.parse(stored);

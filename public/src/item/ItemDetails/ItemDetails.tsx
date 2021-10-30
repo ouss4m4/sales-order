@@ -63,7 +63,6 @@ const ItemDetails: FC<Props> = ({ item, onEditSubmit, onDeleteItem }) => {
     let confirmDelete = window.confirm('You sure you want to delete ?');
     if (confirmDelete) {
       var deleted = await onDeleteItem(item);
-      console.log('------', deleted);
       if (deleted) {
         onBackClick();
       } else {

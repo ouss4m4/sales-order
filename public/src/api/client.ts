@@ -1,5 +1,5 @@
 import { IClient } from '../client/typings';
-
+import { headers } from './headers';
 class ClientApi {
   constructor(private url: string) {}
   private headers = {
@@ -9,7 +9,7 @@ class ClientApi {
   public async getClients(): Promise<IClient[]> {
     try {
       const clients = await fetch(`${this.url}/clients`, {
-        headers: this.headers,
+        headers,
       }).then((data) => data.json());
       return clients;
     } catch (error) {
@@ -22,7 +22,7 @@ class ClientApi {
     try {
       const response = await fetch(`${this.url}/clients`, {
         method: 'POST',
-        headers: this.headers,
+        headers,
         body: JSON.stringify(client),
       }).then((data) => data.json());
       return response;
@@ -34,7 +34,7 @@ class ClientApi {
   public async getClientById(cardcode: number): Promise<IClient> {
     try {
       const response = await fetch(`${this.url}/clients/${cardcode}`, {
-        headers: this.headers,
+        headers,
       }).then((data) => data.json());
       return response;
     } catch (error: any) {
@@ -46,7 +46,7 @@ class ClientApi {
     try {
       const response = await fetch(`${this.url}/clients`, {
         method: 'PUT',
-        headers: this.headers,
+        headers,
         body: JSON.stringify(client),
       }).then((data) => data.json());
       return response;

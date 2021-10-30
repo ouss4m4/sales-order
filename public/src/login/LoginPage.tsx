@@ -13,13 +13,12 @@ const LoginPage: FC<Props> = ({ updateLogin }) => {
   const loginAsAdmin = async () => {
     await authService.tryLogin('admin@me.com', 'admin');
     history.replace('/items');
-    console.log('wtf?');
     updateLogin(true);
     return true;
   };
   const loginAsUser = async () => {
     await authService.tryLogin('sales@per.son', 'sales');
-    history.replace('/clients');
+    history.replace('/orders');
     updateLogin(true);
 
     return true;

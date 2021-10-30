@@ -1,16 +1,12 @@
 import { IOrder, IOrderHeader } from '../order/typings';
-
+import { headers } from './headers';
 class OrderApi {
   constructor(private url: string) {}
-  private headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
 
   public async getOrders(): Promise<IOrderHeader[]> {
     try {
       const orders = await fetch(`${this.url}/orders`, {
-        headers: this.headers,
+        headers,
       }).then((data) => data.json());
       return orders;
     } catch (error) {
@@ -23,7 +19,7 @@ class OrderApi {
     try {
       const response = await fetch(`${this.url}/orders`, {
         method: 'POST',
-        headers: this.headers,
+        headers,
         body: JSON.stringify(order),
       }).then((data) => data.json());
       return response;
@@ -35,7 +31,7 @@ class OrderApi {
   public async getOrderById(orderId: number): Promise<IOrder> {
     try {
       const response = await fetch(`${this.url}/orders/${orderId}`, {
-        headers: this.headers,
+        headers,
       }).then((data) => data.json());
       return response;
     } catch (error: any) {

@@ -2,6 +2,9 @@
 
 Work In Progress... Deployed at https://salesorder-app.azurewebsites.net/
 
+API EndPoints : https://salesorder-app.azurewebsites.net/swagger/index.html
+(if swagger doesnt show - use incognito tab)
+
 Web Application to create sales orders for clients.
 
 In this app i will try an implements as much features as possible that i generally encounters in real world entreprise apps.
@@ -129,13 +132,12 @@ public class OrderLine
 
 React App served from a static folder through Dotnet server
 
-- Items Module CRUD Openrations ✔  
-- Clients Module CRUD Operations ✔  
+- Items Module CRUD Openrations ✔
+- Clients Module CRUD Operations ✔
 - Orders Module:
-  -  Show Orders List ✔
-  -  Show Order Details ✔
-  -  Create A New Order 
-
+  - Show Orders List ✔
+  - Show Order Details ✔
+  - Create A New Order
 
 ## Devops
 

@@ -47,6 +47,9 @@ const CreateOrderPage = (props: Props) => {
     if (!header) {
       return;
     }
+    if (lines.length <= 0) {
+      return;
+    }
     const order: any = {
       billingAddress: header.billingAddress,
       shippingAddress: header.shippingAddress,
@@ -67,9 +70,6 @@ const CreateOrderPage = (props: Props) => {
   return (
     <>
       <div>
-        <Typography component="h1" variant="h5" textAlign="center">
-          Create Order
-        </Typography>
         {!client && (
           <Typography component="h1" variant="h5" textAlign="center">
             Please select a client first
@@ -82,7 +82,13 @@ const CreateOrderPage = (props: Props) => {
             <OrderLines lines={lines}>
               <LinePicker onQtySubmit={addLineToOrder} ref={lineAddRef} />
             </OrderLines>
-            <Button variant="outlined" color="success" onClick={createOrder}>
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={createOrder}
+              disabled={!header || !lines.length}
+              style={{ margin: '12px 0' }}
+            >
               Save
             </Button>
           </Container>

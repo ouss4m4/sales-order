@@ -1,0 +1,26 @@
+.order-header-wrap {
+  display: flex;
+  padding: 8px;
+  justify-content: space-between;
+}
+.client-info {
+  display: flex;
+}
+.avatar-wrap {
+  width: 120px;
+  height: 120px;
+}
+.avatar {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.bio {
+  font-size: 24px;
+  padding: 4px 12px;
+}
+
+.bio p {
+  margin: 0;
+  padding: 0;
+}

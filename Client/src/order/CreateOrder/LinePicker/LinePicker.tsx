@@ -23,7 +23,7 @@ const LinePicker = forwardRef<any, Props>(({ onQtySubmit }, ref) => {
   };
 
   return (
-    <tr ref={ref as any}>
+    <tr ref={ref as any} style={{ height: '80px' }}>
       <td></td>
       <td>{item ? item?.itemName : <ItemPicker itemSelected={setItem} />}</td>
       <td>

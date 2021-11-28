@@ -1,26 +1,46 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using sales_order.Data;
+using sales_order.Extensions;
 
-namespace sales_order
+var builder = WebApplication.CreateBuilder(args);
+
+
+// Add services to the container.
+var services = builder.Services;
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+services.AddControllers();
+
+services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(builder.Configuration.GetConnectionString("mySqlDb")));
+
+services.AddApplicationServices();
+services.AddAuthorization();
+services.AddSwaggerDocumentation();
+services.AddCors(opts =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    opts.AddPolicy("CorsPolicy", policy =>
+     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("*"));
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
+var app = builder.Build();
+
+app.UseSwaggerDocumentation();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
+
+
+
+app.Run();

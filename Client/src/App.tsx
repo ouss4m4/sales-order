@@ -14,7 +14,6 @@ import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
 import { ItemPage } from './item/ItemPage';
 import LoginPage from './login/LoginPage';
 import Logout from './login/Logout';
-import logo from './logo.svg';
 import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
 import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
 import OrderPage from './order/OrderPage';

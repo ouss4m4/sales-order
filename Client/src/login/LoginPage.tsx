@@ -10,18 +10,18 @@ interface Props {
 const LoginPage: FC<Props> = ({ updateLogin }) => {
   const history = useHistory();
   useEffect(() => {
-    if (authService.isUserLoggedIn()) history.replace('/orders');
+    if (authService.isUserLoggedIn()) history.replace('/orders/new');
   });
 
   const loginAsAdmin = async () => {
     await authService.tryLogin('admin@me.com', 'admin');
-    history.replace('/items');
+    history.replace('/orders/new');
     updateLogin(true);
     return true;
   };
   const loginAsUser = async () => {
     await authService.tryLogin('sales@per.son', 'sales');
-    history.replace('/orders');
+    history.replace('/orders/new');
     updateLogin(true);
 
     return true;

@@ -7,6 +7,7 @@ using sales_order.Orders.Data;
 using sales_order.Orders.Dtos;
 using sales_order.Orders.Models;
 using sales_order.Orders.UseCases;
+using sales_order.Services;
 
 namespace sales_order.Orders.Controllers
 {
@@ -17,12 +18,18 @@ namespace sales_order.Orders.Controllers
         private readonly IOrderRepo repo;
         private readonly IMapper mapper;
         private readonly CreateOrder createOrder;
+        private readonly IExternalApiService externalApiService;
 
-        public OrdersController(IOrderRepo repo, IMapper mapper, CreateOrder createOrder)
+        public OrdersController(
+            IOrderRepo repo,
+            IMapper mapper,
+            CreateOrder createOrder,
+            IExternalApiService externalApiService)
         {
             this.repo = repo;
             this.mapper = mapper;
             this.createOrder = createOrder;
+            this.externalApiService = externalApiService;
         }
 
         [HttpGet]
@@ -49,6 +56,10 @@ namespace sales_order.Orders.Controllers
         {
             var order = mapper.Map<Order>(dto);
             Order result = await createOrder.execute(order);
+
+            // Send order to external API
+            await externalApiService.SendOrderToExternalApi(result);
+
             return CreatedAtRoute(nameof(GetOrderById), new { Id = result.OrderId }, result);
         }
 

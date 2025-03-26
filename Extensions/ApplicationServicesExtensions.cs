@@ -6,6 +6,7 @@ using sales_order.Clients.Data;
 using sales_order.Items.Data;
 using sales_order.Orders.Data;
 using sales_order.Orders.UseCases;
+using sales_order.Services;
 using sales_order.Users.Services;
 
 namespace sales_order.Extensions
@@ -19,6 +20,9 @@ namespace sales_order.Extensions
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IApplicationUser, ApplicationUser>();
             services.AddScoped<CreateOrder>();
+            services.AddScoped<IExternalApiService, ExternalApiService>();
+            services.AddHttpClient();
+
             services.AddAuthentication(x =>
                             {
                                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

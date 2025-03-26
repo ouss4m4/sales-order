@@ -2,9 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace sales_order.Orders.Models
 {
+    public enum OrderStatus
+    {
+        Created,
+        Delivered,
+        Cancelled
+    }
+
     public class Order
     {
         [Key]
@@ -21,5 +27,6 @@ namespace sales_order.Orders.Models
         public string ShippingAddress { get; set; }
         [MinLength(1)]
         public ICollection<OrderLine> OrderLines { get; set; }
+        public OrderStatus Status { get; set; } = OrderStatus.Created;
     }
 }

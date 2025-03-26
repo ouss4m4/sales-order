@@ -35,6 +35,7 @@ namespace sales_order.Users.Services
 
         public LoginSuccessDto Authenticate(string email, string password)
         {
+
             var user = _users.SingleOrDefault(x => x.Email == email && x.Password == password);
 
             // return null if user not found
@@ -44,7 +45,7 @@ namespace sales_order.Users.Services
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s");
+            var key = Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s733th4x0r.s733th4x0r.s"); // At least 32 characters
             var claims = new List<Claim>
                 {
                      new Claim(ClaimTypes.Email, user.Email),

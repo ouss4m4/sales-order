@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using sales_order.Clients.Data;
 using sales_order.Clients.Dtos;
 using sales_order.Clients.Models;
-using sales_order.Users.Models;
+// using sales_order.Users.Models;
 
 namespace sales_order.Clients.Controllers
 {
@@ -31,7 +31,7 @@ namespace sales_order.Clients.Controllers
             return Ok(mapper.Map<IEnumerable<ClientReadDto>>(clients));
         }
 
-        [HttpGet("{id}", Name = "GetCLientById")]
+        [HttpGet("{id}", Name = "GetClientById")]
         public async Task<ActionResult<Client>> GetClientById(int id)
         {
             try

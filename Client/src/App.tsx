@@ -1,25 +1,20 @@
-import { Alert } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Alert } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-import './App.css';
-import ClientDetailsPage from './client/ClientDetails/ClientDetailsPage';
-import ClientPage from './client/ClientPage';
-import { ItemDetailsPage } from './item/ItemDetails/ItemDetailsPage';
-import { ItemPage } from './item/ItemPage';
-import LoginPage from './login/LoginPage';
-import Logout from './login/Logout';
-import CreateOrderPage from './order/CreateOrder/CreateOrderPage';
-import OrderDetailsPage from './order/OrderDetails/OrderDetailsPage';
-import OrderPage from './order/OrderPage';
-import { authService } from './shared/authservice';
-import Navbar from './shared/Navbar';
-import PrivateRoute from './shared/PrivateRoute';
+import "./App.css";
+import ClientDetailsPage from "./client/ClientDetails/ClientDetailsPage";
+import ClientPage from "./client/ClientPage";
+import { ItemDetailsPage } from "./item/ItemDetails/ItemDetailsPage";
+import { ItemPage } from "./item/ItemPage";
+import LoginPage from "./login/LoginPage";
+import Logout from "./login/Logout";
+import CreateOrderPage from "./order/CreateOrder/CreateOrderPage";
+import OrderDetailsPage from "./order/OrderDetails/OrderDetailsPage";
+import OrderPage from "./order/OrderPage";
+import { authService } from "./shared/authservice";
+import Navbar from "./shared/Navbar";
+import PrivateRoute from "./shared/PrivateRoute";
 
 function App() {
   authService.getStoredUser();
@@ -38,23 +33,21 @@ function App() {
         </header> */}
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Alert severity="info">
-            WebApp hosted of FREE Azure tier, You may face a SLOW Start
-          </Alert>
+          <Alert severity="info">WebApp hosted of FREE Azure tier, You may face a SLOW Start</Alert>
         </div>
       </div>
       <Router>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {login && <Navbar />}
@@ -70,24 +63,13 @@ function App() {
             <PrivateRoute path="/items/:itemcode" component={ItemDetailsPage} />
 
             <PrivateRoute exact path="/clients" component={ClientPage} />
-            <PrivateRoute
-              path="/clients/:cardcode"
-              component={ClientDetailsPage}
-            />
+            <PrivateRoute path="/clients/:cardcode" component={ClientDetailsPage} />
 
             <PrivateRoute exact path="/orders" component={OrderPage} />
             <PrivateRoute path="/orders/new" component={CreateOrderPage} />
-            <PrivateRoute
-              path="/orders/:orderId"
-              component={OrderDetailsPage}
-            />
+            <PrivateRoute path="/orders/:orderId" component={OrderDetailsPage} />
 
-            <PrivateRoute
-              exact
-              path="/logout"
-              component={Logout}
-              updateLogin={setLoggedIn}
-            />
+            <PrivateRoute exact path="/logout" component={Logout} updateLogin={setLoggedIn} />
           </Switch>
         </div>
       </Router>

@@ -34,7 +34,7 @@ namespace sales_order.Extensions
                                     ValidateAudience = true,
                                     ValidIssuer = "bzouss.com",
                                     ValidAudience = "general",
-                                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s"))
+                                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("733th4x0r.s733th4x0r.s733th4x0r.s733th4x0r.s"))
                                 };
                             });
             return services;

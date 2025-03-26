@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using sales_order.Data;
 using sales_order.Extensions;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -14,8 +13,9 @@ var services = builder.Services;
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddControllers();
 
-services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(builder.Configuration.GetConnectionString("mySqlDb")));
+services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("MySqlDb"),
+        new MySqlServerVersion(new Version(8, 0, 33))));
 
 services.AddApplicationServices();
 services.AddAuthorization();

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using sales_order.Clients.Models;
-using sales_order.Items.Models;
+
 
 namespace sales_order.Orders.Models
 {
